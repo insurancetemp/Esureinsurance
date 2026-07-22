@@ -165,6 +165,8 @@ document.getElementById("price").innerHTML = price;
 
 async function submitQuote(){
 
+try {
+
 const firstName = document.getElementById("firstName").value;
 const lastName = document.getElementById("lastName").value;
 const email = document.getElementById("email").value;
@@ -183,15 +185,13 @@ const price = document.getElementById("price").innerText;
 
 // Create account
 
-const { const { data: authData, error: authError } = await supabaseClient.auth.signUp({
+const { data: authData, error: authError } =
+await supabaseClient.auth.signUp({
 
 email: email,
-
 password: "TempPassword123!"
 
 });
-
-};
 
 
 if(authError){
@@ -205,21 +205,30 @@ return;
 const userId = authData.user.id;
 
 
-// Save customer profile
+// Save profile
 
+const {error: profileError} =
 await supabaseClient
 .from("profiles")
 .insert({
 
-id: userId,
-first_name: firstName,
-last_name: lastName,
-email: email,
-phone: phone,
-address: address,
-date_of_birth: dob
+id:userId,
+first_name:firstName,
+last_name:lastName,
+email:email,
+phone:phone,
+address:address,
+date_of_birth:dob
 
 });
+
+
+if(profileError){
+
+alert(profileError.message);
+return;
+
+}
 
 
 // Save vehicle
@@ -228,11 +237,11 @@ await supabaseClient
 .from("vehicles")
 .insert({
 
-user_id: userId,
-registration: registration,
-make: make,
-model: model,
-year: year
+user_id:userId,
+registration:registration,
+make:make,
+model:model,
+year:year
 
 });
 
@@ -243,15 +252,23 @@ await supabaseClient
 .from("quotes")
 .insert({
 
-user_id: userId,
-cover_type: coverType,
-estimated_price: price,
-status: "approved"
+user_id:userId,
+cover_type:coverType,
+estimated_price:price,
+status:"approved"
 
 });
 
 
-alert("Your quote has been created. Please check your email to confirm your account and access your portal.");
+alert("Quote created successfully. Please check your email.");
+
+}
+
+catch(error){
+
+alert(error.message);
+
+}
 
 }
 
