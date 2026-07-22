@@ -56,7 +56,8 @@ a {
 }
 
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 </head>
 
 
@@ -82,7 +83,7 @@ a {
 
 
 <a href="dashboard.html">
-<button>
+<button onclick="loginUser()">
 Login
 </button>
 </a>
@@ -102,7 +103,29 @@ Start a Quote
 
 </div>
 
+<script>
 
+async function loginUser(){
+
+const email = document.querySelector('input[type="email"]').value;
+const password = document.querySelector('input[type="password"]').value;
+
+const { data, error } = await supabaseClient.auth.signInWithPassword({
+email: email,
+password: password
+});
+
+if(error){
+alert(error.message);
+}else{
+window.location.href = "dashboard.html";
+}
+
+}
+
+</script>
+
+</body>
 </body>
 
 </html>
