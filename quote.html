@@ -161,5 +161,99 @@ document.getElementById("price").innerHTML = price;
 
 
 </script>
+<script>
+
+async function submitQuote(){
+
+const firstName = document.getElementById("firstName").value;
+const lastName = document.getElementById("lastName").value;
+const email = document.getElementById("email").value;
+const phone = document.getElementById("phone").value;
+const dob = document.getElementById("dob").value;
+const address = document.getElementById("address").value;
+
+const registration = document.getElementById("registration").value;
+const make = document.getElementById("make").value;
+const model = document.getElementById("model").value;
+const year = document.getElementById("year").value;
+
+const coverType = document.getElementById("coverType").value;
+const price = document.getElementById("price").innerText;
+
+
+// Create account
+
+const { data: authData, error: authError } = await supabaseClient.auth.signUp({
+
+email: email,
+
+password: Math.random().toString(36).slice(-10)
+
+});
+
+
+if(authError){
+
+alert(authError.message);
+return;
+
+}
+
+
+const userId = authData.user.id;
+
+
+// Save customer profile
+
+await supabaseClient
+.from("profiles")
+.insert({
+
+id: userId,
+first_name: firstName,
+last_name: lastName,
+email: email,
+phone: phone,
+address: address,
+date_of_birth: dob
+
+});
+
+
+// Save vehicle
+
+await supabaseClient
+.from("vehicles")
+.insert({
+
+user_id: userId,
+registration: registration,
+make: make,
+model: model,
+year: year
+
+});
+
+
+// Save quote
+
+await supabaseClient
+.from("quotes")
+.insert({
+
+user_id: userId,
+cover_type: coverType,
+estimated_price: price,
+status: "approved"
+
+});
+
+
+alert("Your quote has been created. Check your email to access your account.");
+
+}
+
+
+</script>
 </body>
 </html>
