@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>    
 <head>
 
 <title>Get a Quote - Esure Insurance</title>
@@ -93,17 +95,28 @@ button {
 <input type="number" placeholder="Vehicle Year">
 
 
-<h2>Cover Required</h2>
+<h2>Choose Your Cover</h2>
 
-<select>
+<select id="coverType" onchange="calculatePrice()">
 
-<option>Temporary Insurance</option>
+<option value="daily">Daily Cover - £30 (24 Hours)</option>
 
-<option>Daily Cover</option>
-
-<option>Monthly Cover</option>
+<option value="hourly">Hourly Cover - £25 per hour</option>
 
 </select>
+
+
+<div id="hoursBox">
+
+<input id="hours" type="number" placeholder="Number of hours" onchange="calculatePrice()">
+
+</div>
+
+
+<h3>
+Your Quote:
+£<span id="price">30/span>
+</h3>
 
 
 <button type="button">
@@ -115,6 +128,38 @@ Get Quote
 
 </div>
 
+<script>
 
+function calculatePrice(){
+
+let cover = document.getElementById("coverType").value;
+
+let price = 30;
+
+
+if(cover === "hourly"){
+
+let hours = document.getElementById("hours").value;
+
+if(hours){
+
+price = hours * 25;
+
+}else{
+
+price = 25;
+
+}
+
+}
+
+
+document.getElementById("price").innerHTML = price;
+
+
+}
+
+
+</script>
 </body>
 </html>
