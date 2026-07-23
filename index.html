@@ -1,43 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Esure Insurance</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
     font-family: Arial, sans-serif;
-    margin:0;
-    background:#f5f7fa;
+    margin: 0;
+    background: #f5f7fa;
 }
 
 header {
-    background:#003b73;
-    color:white;
-    padding:25px;
-    text-align:center;
+    background: #003b73;
+    color: white;
+    padding: 25px;
+    text-align: center;
 }
 
 .container {
-    padding:25px;
+    padding: 25px;
 }
 
 .card {
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    margin-top:20px;
-    box-shadow:0 3px 10px #ccc;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 3px 10px #ccc;
 }
 
-button {
-    background:#0066cc;
-    color:white;
-    border:none;
-    padding:15px;
-    border-radius:8px;
-    width:100%;
-    font-size:16px;
+.button {
+    display: block;
+    width: 100%;
+    background: #0066cc;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 </style>
 
@@ -46,34 +50,29 @@ button {
 <body>
 
 <header>
-<h1>Esure Insurance</h1>
-<p>Fast & Simple Temporary Motor Insurance</p>
+    <h1>Esure Insurance</h1>
+    <p>Fast & Simple Temporary Motor Insurance</p>
 </header>
-
 
 <div class="container">
 
-<div class="card">
-<h2>Get a Quote</h2>
-<p>Start your insurance quote today.</p>
+    <div class="card">
+        <h2>Get a Quote</h2>
+        <p>Start your insurance quote today.</p>
 
-<a href="quote.html"> 
-<button>
-start quote
-</button>
-</a>
+        <a class="button" href="quote.html">
+            Start Quote
+        </a>
+    </div>
 
+    <div class="card">
+        <h2>Customer Portal</h2>
+        <p>Login to view your policy documents, vehicle cover and details.</p>
 
-<div class="card">
-<h2>Customer Portal</h2>
-<p>Login to view your policy documents, vehicle cover and details.</p>
-
-<a href="login.html">
-</button>
-Customer Login
-</button>
-</a>
-
+        <a class="button" href="login.html">
+            Customer Login
+        </a>
+    </div>
 
 </div>
 
