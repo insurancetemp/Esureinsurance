@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Get a Quote - Esureinsurance</title>
+
+<style>
+
+body {
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+}
+
+header {
+    background:#003b73;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+.container {
+    max-width:700px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.card {
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color:#003b73;
+}
+
+label {
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input, select {
+
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    box-sizing:border-box;
+
+}
+
+.lookup {
+
+    display:flex;
+    gap:10px;
+
+}
+
+.lookup input {
+
+    flex:1;
+
+}
+
+
+button {
+
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    background:#ffb000;
+    border:none;
+    border-radius:8px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+
+}
+
+
+.lookup button {
+
+    width:160px;
+    margin-top:5px;
+
+}
+
+
+.vehicle-box {
+
+    background:#eef6ff;
+    padding:15px;
+    border-radius:8px;
+    margin-top:20px;
+
+}
+
+
+.message {
+
+    background:#e8f5e9;
+    padding:12px;
+    border-radius:8px;
+    margin-top:15px;
+    display:none;
+
+}
+
+
+@media(max-width:600px){
+
+.lookup {
+
+    display:block;
+
+}
+
+
+.lookup button {
+
+    width:100%;
+
+}
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>Esureinsurance</h1>
+
+<p>Get your temporary car insurance quote</p>
+
+</header>
+
+
+
+<div class="container">
+
+<div class="card">
+
+
+<h2>Your Details</h2>
+
+
+<label>Full Name</label>
+<input id="name" type="text" placeholder="Enter your name">
+
+
+<label>Email Address</label>
+<input id="email" type="email" placeholder="Enter your email">
+
+
+<label>Phone Number</label>
+<input id="phone" type="tel" placeholder="Enter phone number">
+
+
+
+<h2>Vehicle Details</h2>
+
+
+<label>Registration Number</label>
+
+
+<div class="lookup">
+
+<input id="registration" placeholder="Example AB12 CDE">
+
+
+<button onclick="findVehicle()">
+Find Vehicle
+</button>
+
+</div>
+
+
+
+<div id="vehicleMessage" class="message">
+
+Vehicle found. Please check details and edit if required.
+
+</div>
+
+
+
+<div id="vehicleBox" class="vehicle-box" style="display:none;">
+
+
+<label>Make</label>
+<input id="make" placeholder="Example Ford">
+
+
+<label>Model</label>
+<input id="model" placeholder="Example Focus">
+
+
+<label>Year</label>
+<input id="year" placeholder="Example 2018">
+
+
+<label>Engine Size</label>
+<input id="engine" placeholder="Example 999cc">
+
+
+<label>Fuel Type</label>
+<input id="fuel" placeholder="Petrol / Diesel / Electric">
+
+
+</div>
+
+
+
+<h2>Cover</h2>
+
+
+<label>Select Cover</label>
+
+<select id="cover">
+
+<option value="1 Hour Cover">1 Hour Cover - £20</option>
+
+<option value="1 Day Cover">1 Day Cover - £45</option>
+
+</select>
+
+
+
+
+<button onclick="getQuote()">
+
+Get Quote
+
+</button>
+
+
+
+<div id="quoteResult" class="vehicle-box" style="display:none;">
+
+<h2>Your Quote</h2>
+
+<div id="quoteDetails"></div>
+
+
+<button onclick="createAccount()">
+
+Continue To Create Account
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+
+
+<script>
+
+
+function findVehicle(){
+
+
+let reg=document.getElementById("registration").value.trim();
+
+
+
+if(reg===""){
+
+alert("Please enter your registration number");
+
+return;
+
+}
+
+
+
+if(reg.length<5){
+
+alert("Please enter a valid registration number");
+
+return;
+
+}
+
+
+
+document.getElementById("vehicleBox").style.display="block";
+
+document.getElementById("vehicleMessage").style.display="block";
+
+
+}
+
+
+
+function getQuote(){
+
+
+let name=document.getElementById("name").value;
+
+let make=document.getElementById("make").value;
+
+let model=document.getElementById("model").value;
+
+let year=document.getElementById("year").value;
+
+let cover=document.getElementById("cover").value;
+
+
+
+if(name==="" || make==="" || model==="" || year===""){
+
+
+alert("Please complete your customer and vehicle details");
+
+return;
+
+
+}
+
+
+
+let price;
+
+
+
+if(cover==="1 Hour Cover"){
+
+price="£20";
+
+}
+
+else {
+
+price="£45";
+
+}
+
+
+
+document.getElementById("quoteResult").style.display="block";
+
+
+
+document.getElementById("quoteDetails").innerHTML=
+
+`
+
+Customer: ${name}<br><br>
+
+Vehicle: ${make} ${model}<br>
+
+Year: ${year}<br>
+
+Cover: ${cover}<br><br>
+
+<strong>Price: ${price}</strong>
+
+`;
+
+
+
+}
+
+
+
+function createAccount(){
+
+
+alert("Account creation will be added next");
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
