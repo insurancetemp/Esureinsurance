@@ -467,7 +467,7 @@ const quotePrice=parseFloat(price.innerHTML.replace("£",""))||0;
 
 try{
 
-const {error}=await supabase
+const {error}=await supabaseClient
 .from("quotes")
 .insert([{
 
