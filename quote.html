@@ -460,12 +460,6 @@ message.innerHTML="";
 
 const { data:{ user } } = await supabaseClient.auth.getUser();
 
-if(!user){
-
-window.location.href="login.html";
-return;
-
-}
 
 const quoteRef="ES-"+Math.floor(Math.random()*900000+100000);
 
