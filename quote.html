@@ -538,7 +538,49 @@ message.innerHTML=err.message;
 });
 
 </script>
+<script>
+const supabaseClient = supabase.createClient(
+  "https://lvjdaizpaqjnchjvrsni.supabase.co",
+  "sb_publishable_fnag8tkEEClWTLVR7fL1sQ_3_rbAzEc"
+);
 
+document.getElementById("quoteForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const email = document.getElementById("email").value;
+    const address = document.getElementById("address").value;
+    const occupation = document.getElementById("occupation").value;
+    const licence = document.getElementById("licence").value;
+    const registration = document.getElementById("registration").value;
+
+    const fullName = firstName + " " + lastName;
+
+    // Example temporary quote price
+    const price = 45;
+
+    const { data, error } = await supabaseClient
+    .from("quotes")
+    .insert([
+        {
+            full_name: fullName,
+            email: email,
+            registration: registration,
+            estimated_price: price,
+            status: "pending"
+        }
+    ]);
+
+    if(error){
+        alert("Error saving quote: " + error.message);
+        console.log(error);
+    } else {
+        alert("Quote submitted successfully! Price: £" + price);
+        console.log(data);
+    }
+});
+</script>
 </body>
 
 </html>
