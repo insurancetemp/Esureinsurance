@@ -513,9 +513,11 @@ if(error) throw error;
 
 message.className="success";
 
-message.innerHTML=
-"Quote created successfully.<br><br>Reference: <b>"+quoteRef+"</b><br><br>Your estimated price is <b>£"+quotePrice+"</b>";
-
+message.innerHTML =
+"Quote created successfully.<br><br>" +
+"Reference: <b>"+quoteRef+"</b><br><br>" +
+"Your estimated price is <b>£"+quotePrice+"</b><br><br>" +
+"<button id='buyButton'>Purchase Now</button>";
 document.getElementById("quoteForm").reset();
 
 price.innerHTML="£0";
