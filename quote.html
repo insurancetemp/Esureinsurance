@@ -523,7 +523,7 @@ document.getElementById("buyButton").onclick = async function () {
     alert("Starting payment for quote " + quoteRef);
 
     const response = await fetch(
-        "YOUR_SUPABASE_FUNCTION_URL",
+        "https://lvjdaizpaqjnchjvrsni.supabase.co/functions/v1/create-checkout",
         {
             method: "POST",
             headers: {
