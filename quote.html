@@ -518,6 +518,14 @@ message.innerHTML =
 "Reference: <b>"+quoteRef+"</b><br><br>" +
 "Your estimated price is <b>£"+quotePrice+"</b><br><br>" +
 "<button id='buyButton'>Purchase Now</button>";
+
+
+document.getElementById("buyButton").addEventListener("click", function(){
+
+    alert("Starting payment for quote: " + quoteRef);
+
+});
+  
 document.getElementById("quoteForm").reset();
 
 price.innerHTML="£0";
