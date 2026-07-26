@@ -518,6 +518,28 @@ message.innerHTML =
 "Reference: <b>"+quoteRef+"</b><br><br>" +
 "Your estimated price is <b>£"+quotePrice+"</b><br><br>" +
 "<button id='buyButton'>Purchase Now</button>";
+document.getElementById("buyButton").onclick = async function () {
+
+    const response = await fetch(
+        "https://lvjdaizpaqjnchjvrsni.supabase.co/functions/v1/create-checkout",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                amount: quotePrice,
+                quoteRef: quoteRef,
+                email: email
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    window.location.href = data.url;
+
+};
 
 
 document.getElementById("buyButton").addEventListener("click", function(){
