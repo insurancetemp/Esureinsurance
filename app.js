@@ -401,14 +401,6 @@ async function loadActivePolicyCount(userId) {
 // ==============================
 
 
-const detailsSection = document.getElementById("policyDetails");
-const profileSection = document.getElementById("profileSection");
-const faqSection = document.getElementById("faqSection");
-const policyCard = document.querySelector(".policy-card");
-const policySummary = document.querySelector(".policy-summary");
-
-
-
 function hideAllSections(){
 
     detailsSection.style.display = "none";
