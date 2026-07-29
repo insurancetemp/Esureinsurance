@@ -104,7 +104,7 @@ async function loadPolicy(userId) {
         data.make + " " + data.model;
 
     document.getElementById("vehicleDetails").textContent =
-        data.year + " " + data.colour;
+    data.year + (data.colour ? " " + data.colour : "");
 
     document.getElementById("coverType").textContent =
         data.cover_type;
