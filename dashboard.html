@@ -719,81 +719,187 @@ Loading...
 </div>
 <!-- PART 4A START -->
 
+<!-- PART 6 START -->
+
 <section id="customerPortal" style="display:none;">
 
-<div class="portal-container">
+<div class="dashboard">
 
-<h1>Welcome to your Insurance Portal</h1>
 
-<p id="welcomeUser"></p>
+<div class="dashboard-header">
 
-<div class="portal-card">
+<h1>Insurance Portal</h1>
 
-<h2>Your Quote</h2>
+<p id="welcomeUser">
+Welcome
+</p>
+
+</div>
+
+
+
+<div class="dashboard-card">
+
+<h2>Policy Status</h2>
+
+<h3 id="policyStatus">
+Pending Payment
+</h3>
 
 <p>
 Reference:
-<strong id="portalReference">Loading...</strong>
+<strong id="portalReference">
+-
+</strong>
 </p>
+
+</div>
+
+
+
+
+<div class="dashboard-card">
+
+<h2>Vehicle Details</h2>
 
 <p>
 Vehicle:
-<strong id="portalVehicle">Loading...</strong>
+<strong id="portalVehicle">
+-
+</strong>
 </p>
 
+
 <p>
-Cover:
-<strong id="portalCover">Loading...</strong>
+Cover Type:
+<strong id="portalCover">
+-
+</strong>
 </p>
+
 
 <p>
 Price:
-<strong>£<span id="portalPrice">0</span></strong>
+<strong>
+£<span id="portalPrice">0</span>
+</strong>
 </p>
+
 
 <button id="purchasePortalButton">
 Purchase Policy
 </button>
 
+
 </div>
 
 
-<div class="portal-card">
 
-<h2>Your Documents</h2>
+
+
+<div class="dashboard-card">
+
+
+<h2>Documents</h2>
 
 <p>
 Your insurance documents will appear here once your policy is active.
 </p>
 
+
 <button>
 View Documents
 </button>
 
+
 </div>
 
 
-<div class="portal-card">
 
-<h2>Account Details</h2>
 
-<p id="portalEmail"></p>
+<div class="dashboard-card">
 
-<p id="portalAddress"></p>
+
+<h2>Account</h2>
+
+<p id="portalEmail">
+</p>
+
+<p id="portalAddress">
+</p>
+
 
 <button id="logoutButton">
 Logout
 </button>
 
+
 </div>
 
 
+
 </div>
+
 
 </section>
 
 
+
+<style>
+
+.dashboard{
+
+max-width:650px;
+margin:30px auto;
+padding:20px;
+font-family:Arial,sans-serif;
+
+}
+
+
+.dashboard-header{
+
+margin-bottom:25px;
+
+}
+
+
+.dashboard-card{
+
+background:white;
+padding:22px;
+border-radius:15px;
+margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+
+}
+
+
+.dashboard-card h2{
+
+color:#003b73;
+
+}
+
+
+.dashboard-card button{
+
+width:100%;
+padding:14px;
+background:#003b73;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+
+}
+
+
 </style>
+
+
+<!-- PART 6 END -->
 
 .portal-container{
 max-width:600px;
@@ -921,6 +1027,42 @@ quote.estimated_price;
 
 }
 
+// LOAD ACTIVE POLICY
+
+const { data:policy } = await supabase
+.from("policies")
+.select("*")
+.eq("user_id", user.id)
+.order("created_at",{ascending:false})
+.limit(1)
+.single();
+
+
+
+if(policy){
+
+
+document.getElementById("policyStatus").innerHTML =
+"Active";
+
+
+document.getElementById("portalReference").innerHTML =
+policy.policy_number;
+
+
+document.getElementById("portalVehicle").innerHTML =
+policy.make + " " + policy.model + " (" + policy.registration + ")";
+
+
+document.getElementById("portalCover").innerHTML =
+policy.cover_type;
+
+
+document.getElementById("portalPrice").innerHTML =
+policy.price;
+
+
+}  
 
 // Logout
 
