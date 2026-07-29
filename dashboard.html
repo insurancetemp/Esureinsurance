@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Temp Cover</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- HEADER -->
+    <header class="dashboard-header">
+        <h1>Temp Cover</h1>
+        <p>Insurance Dashboard</p>
+    </header>
+
+
+    <!-- ACTIVE POLICY CARD -->
+    <section class="policy-card">
+
+        <div class="policy-top">
+
+            <span class="active-status">
+                ACTIVE
+            </span>
+
+            <span class="registration" id="vehicleRegistration">
+                LY70ERX
+            </span>
+
+        </div>
+
+
+        <div class="vehicle-info">
+
+            <h2 id="vehicleName">
+                BMW 320D
+            </h2>
+
+            <p id="vehicleDetails">
+                2020 Grey
+            </p>
+
+
+            <p class="cover-type" id="coverType">
+                Fully Comprehensive
+            </p>
+
+
+        </div>
+
+
+        <div class="countdown">
+
+            <span id="timeRemaining">
+                22hr 56m remaining
+            </span>
+
+        </div>
+
+
+        <button class="details-button" id="viewDetails">
+            View Details
+        </button>
+
+
+    </section>
+
+
+
+    <!-- POLICY DETAILS SECTION -->
+
+    <section class="details-section" id="policyDetails">
+
+        <h2>
+            Policy Details
+        </h2>
+
+
+        <button class="certificate-button" id="downloadCertificate">
+            Download Certificate
+        </button>
+
+
+
+        <div class="coverage-box">
+
+            <h3>
+                Coverage Details
+            </h3>
+
+            <h4>
+                Comprehensive Motor Insurance
+            </h4>
+
+            <p>
+                Full coverage for your vehicle
+            </p>
+
+        </div>
+
+
+
+        <div class="coverage-box">
+
+            <h4>
+                Third Party Liability
+            </h4>
+
+            <p>
+                Protection against claims from others
+            </p>
+
+        </div>
+
+
+
+        <div class="coverage-box">
+
+            <h4>
+                Personal Accident Cover
+            </h4>
+
+            <p>
+                Medical expenses coverage
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+
+    <!-- PROFILE SECTION -->
+
+    <section class="profile-section" id="profileSection">
+
+        <h2>
+            Profile
+        </h2>
+
+
+        <div class="profile-box">
+
+            <p>
+                <strong>Email</strong>
+                <span id="profileEmail">
+                    customer@email.com
+                </span>
+            </p>
+
+
+            <p>
+                <strong>Name</strong>
+                <span id="profileName">
+                    John Smith
+                </span>
+            </p>
+
+
+            <p>
+                <strong>Address</strong>
+                <span id="profileAddress">
+                    Customer Address
+                </span>
+            </p>
+
+
+            <p>
+                <strong>Driving Licence Number</strong>
+                <span id="profileLicence">
+                    LICENCE123456
+                </span>
+            </p>
+
+
+            <p>
+                <strong>Phone Number</strong>
+                <span id="profilePhone">
+                    07123456789
+                </span>
+            </p>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+
+    <!-- FAQ SECTION -->
+
+    <section class="faq-section" id="faqSection">
+
+        <h2>
+            FAQ
+        </h2>
+
+        <div class="faq-box">
+
+            <h3>
+                How do I view my documents?
+            </h3>
+
+            <p>
+                Select View Details from your active policy.
+            </p>
+
+        </div>
+
+
+        <div class="faq-box">
+
+            <h3>
+                Can I download my certificate?
+            </h3>
+
+            <p>
+                Yes, your certificate is available inside Policy Details.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- BOTTOM NAVIGATION -->
+
+<nav class="bottom-nav">
+
+
+    <button id="homeButton">
+        Home
+    </button>
+
+
+    <button id="faqButton">
+        FAQ
+    </button>
+
+
+    <button id="profileButton">
+        Profile
+    </button>
+
+
+    <button id="logoutButton">
+        Logout
+    </button>
+
+
+</nav>
+
+
+
+<script src="app.js"></script>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body {
+    margin: 0;
+    background: #f5f7fa;
+    color: #1c1c1c;
+}
+
+
+.app-container {
+    padding: 20px;
+    padding-bottom: 90px;
+}
+
+
+
+/* HEADER */
+
+.dashboard-header {
+    margin-bottom: 20px;
+}
+
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+.dashboard-header p {
+    margin-top: 5px;
+    color: #6b7280;
+}
+
+
+
+
+/* POLICY CARD */
+
+.policy-card {
+
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+
+}
+
+
+
+.policy-top {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+
+}
+
+
+
+.active-status {
+
+    background: #16a34a;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+
+}
+
+
+
+.registration {
+
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 600;
+
+}
+
+
+
+.vehicle-info h2 {
+
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+
+}
+
+
+
+.vehicle-info p {
+
+    margin: 8px 0;
+    font-size: 16px;
+
+}
+
+
+
+.cover-type {
+
+    font-weight: 600;
+    margin-top: 20px !important;
+
+}
+
+
+
+.countdown {
+
+    margin-top: 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #111827;
+
+}
+
+
+
+.details-button {
+
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #111827;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+
+
+
+
+
+/* DETAILS SECTION */
+
+.details-section,
+.profile-section,
+.faq-section {
+
+    display: none;
+    margin-bottom: 25px;
+
+}
+
+
+
+.details-section h2,
+.profile-section h2,
+.faq-section h2 {
+
+    font-size: 24px;
+
+}
+
+
+
+.certificate-button {
+
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px;
+
+}
+
+
+
+
+.coverage-box,
+.profile-box,
+.faq-box {
+
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+
+}
+
+
+
+.coverage-box h3,
+.coverage-box h4 {
+
+    margin-top: 0;
+
+}
+
+
+
+.coverage-box p,
+.faq-box p {
+
+    color: #6b7280;
+
+}
+
+
+
+
+/* PROFILE */
+
+.profile-box p {
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 12px;
+
+}
+
+
+
+.profile-box p:last-child {
+
+    border-bottom: none;
+
+}
+
+
+
+
+/* BOTTOM NAVIGATION */
+
+.bottom-nav {
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 75px;
+    background: white;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+
+}
+
+
+
+.bottom-nav button {
+
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+
+}
+
+
+
+.bottom-nav button:hover {
+
+    color: #111827;
+
+}  
+</body>
+</html>
