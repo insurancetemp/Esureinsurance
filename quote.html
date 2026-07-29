@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Get Your Quote | TempCover</title>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+body{
+    background:#f5f5f5;
+    color:#222;
+}
+
+
+
+/* HEADER */
+
+header{
+
+    background:white;
+    padding:18px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+}
+
+
+.logo{
+
+    font-size:26px;
+    font-weight:800;
+
+}
+
+
+.logo span{
+
+    color:#ff7a00;
+
+}
+
+
+
+.portal-btn{
+
+    background:#ff7a00;
+    color:white;
+    padding:12px 18px;
+    border-radius:25px;
+    text-decoration:none;
+    font-weight:bold;
+
+}
+
+
+
+
+
+/* HERO */
+
+.hero{
+
+    background:
+    linear-gradient(
+    145deg,
+    #ff7a00,
+    #ff9f43
+    );
+
+    padding:45px 22px;
+    color:white;
+    border-radius:0 0 35px 35px;
+
+}
+
+
+
+.hero h1{
+
+    font-size:36px;
+    line-height:1.2;
+    margin-bottom:12px;
+
+}
+
+
+
+.hero p{
+
+    font-size:17px;
+    line-height:1.5;
+
+}
+
+
+
+
+
+/* MAIN */
+
+.container{
+
+    padding:25px 20px;
+    max-width:700px;
+    margin:auto;
+
+}
+
+
+
+.card{
+
+    background:white;
+    padding:25px;
+    border-radius:25px;
+    margin-bottom:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+
+}
+
+
+
+.card h2{
+
+    color:#ff7a00;
+    margin-bottom:20px;
+    font-size:23px;
+
+}
+
+
+
+label{
+
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:7px;
+
+}
+
+
+
+input,
+select{
+
+    width:100%;
+    padding:15px;
+    border-radius:15px;
+    border:1px solid #ddd;
+    background:#fafafa;
+    font-size:16px;
+    margin-bottom:18px;
+
+}
+
+
+
+input:focus,
+select:focus{
+
+    outline:none;
+    border:2px solid #ff7a00;
+    background:white;
+
+}
+
+
+
+.row{
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+
+}
+
+
+
+@media(max-width:700px){
+
+    .row{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="logo">
+Temp<span>Cover</span>
+</div>
+
+
+<a href="login.html" class="portal-btn">
+Portal
+</a>
+
+
+</header>
+
+
+
+<section class="hero">
+
+
+<h1>
+Get Your Temporary Cover
+</h1>
+
+
+<p>
+Complete your details below and receive your insurance quote online.
+</p>
+
+
+</section>
+
+
+
+<div class="container">
+
+
+<form id="quoteForm">
+<div class="card">
+
+
+<h2>
+Personal Details
+</h2>
+
+
+<div class="row">
+
+
+<div>
+
+<label>
+First Name
+</label>
+
+<input 
+type="text"
+id="firstName"
+required
+placeholder="Enter first name">
+
+</div>
+
+
+
+<div>
+
+<label>
+Last Name
+</label>
+
+<input 
+type="text"
+id="lastName"
+required
+placeholder="Enter last name">
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="row">
+
+
+<div>
+
+<label>
+Date of Birth
+</label>
+
+<input
+type="date"
+id="dob"
+required>
+
+</div>
+
+
+
+<div>
+
+<label>
+Email Address
+</label>
+
+<input
+type="email"
+id="email"
+required
+placeholder="Enter email">
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="row">
+
+
+<div>
+
+<label>
+Mobile Number
+</label>
+
+<input
+type="tel"
+id="phone"
+required
+placeholder="Enter phone number">
+
+</div>
+
+
+
+<div>
+
+<label>
+Occupation
+</label>
+
+<input
+type="text"
+id="occupation"
+required
+placeholder="Enter occupation">
+
+</div>
+
+
+</div>
+
+
+
+
+
+<label>
+Home Address
+</label>
+
+<input
+type="text"
+id="address"
+required
+placeholder="Enter your address">
+
+
+
+
+
+<label>
+Driving Licence Number
+</label>
+
+<input
+type="text"
+id="licence"
+required
+placeholder="Enter licence number">
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+Vehicle Details
+</h2>
+
+
+
+<div class="row">
+
+
+<div>
+
+
+<label>
+Vehicle Registration
+</label>
+
+
+<input
+type="text"
+id="registration"
+required
+placeholder="AB12 CDE"
+style="text-transform:uppercase;">
+
+
+</div>
+
+
+
+
+<div>
+
+
+<label>
+Vehicle Make
+</label>
+
+
+<input
+type="text"
+id="make"
+required
+placeholder="e.g. Audi">
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="row">
+
+
+<div>
+
+
+<label>
+Vehicle Model
+</label>
+
+
+<input
+type="text"
+id="model"
+required
+placeholder="e.g. A3">
+
+
+</div>
+
+
+
+
+<div>
+
+
+<label>
+Vehicle Year
+</label>
+
+
+<input
+type="number"
+id="year"
+required
+placeholder="2024">
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<label>
+Vehicle Value (£)
+</label>
+
+
+<input
+type="number"
+id="value"
+placeholder="5000">
+
+
+</div>
+  
+<div class="card">
+
+
+<h2>
+Choose Your Cover
+</h2>
+
+
+
+<label>
+Cover Type
+</label>
+
+
+<select id="cover" required>
+
+
+<option value="">
+Select Cover
+</option>
+
+
+<option value="1hour">
+1 Hour (£20)
+</option>
+
+
+<option value="2hours">
+2 Hours (£40)
+</option>
+
+
+<option value="6hours">
+6 Hours (£120)
+</option>
+
+
+<option value="12hours">
+12 Hours (£240)
+</option>
+
+
+<option value="1day">
+1 Day (£45)
+</option>
+
+
+</select>
+
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+Your Quote
+</h2>
+
+
+
+<div style="
+background:#fff4e8;
+padding:25px;
+border-radius:20px;
+text-align:center;
+">
+
+
+<p style="
+font-size:14px;
+color:#666;
+">
+Estimated price
+</p>
+
+
+<div id="price" style="
+font-size:42px;
+font-weight:800;
+color:#ff7a00;
+margin:10px 0;
+">
+£0
+</div>
+
+
+<p>
+Select your cover option to calculate your quote.
+</p>
+
+
+</div>
+
+
+
+
+<button
+type="submit"
+style="
+width:100%;
+margin-top:20px;
+padding:18px;
+background:#ff7a00;
+color:white;
+border:none;
+border-radius:30px;
+font-size:18px;
+font-weight:800;
+cursor:pointer;
+">
+
+Generate My Quote
+
+</button>
+
+
+
+<div id="message" style="
+text-align:center;
+margin-top:20px;
+font-weight:bold;
+">
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+Secure Online Cover
+</h2>
+
+
+<p>
+🔒 Secure online payment
+</p>
+
+
+<p style="margin-top:10px;">
+⚡ Fast temporary insurance quotes
+</p>
+
+
+<p style="margin-top:10px;">
+📄 Digital policy documents
+</p>
+
+
+</div>
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+<footer style="
+background:#222;
+color:white;
+padding:35px 20px;
+text-align:center;
+font-size:13px;
+line-height:1.7;
+">
+
+
+<h2 style="
+color:#ff7a00;
+">
+TempCover
+</h2>
+
+
+<p style="margin-top:15px;">
+Temporary Motor Insurance made simple.
+</p>
+
+
+<p style="margin-top:15px;">
+© Copyright 2026 TempCover. All rights reserved.
+</p>
+
+
+</footer>
+<script>
+
+
+const coverSelect = document.getElementById("cover");
+const priceBox = document.getElementById("price");
+
+
+const prices = {
+
+    "1hour":20,
+    "2hours":40,
+    "6hours":120,
+    "12hours":240,
+    "1day":45
+
+};
+
+
+
+coverSelect.addEventListener("change", function(){
+
+
+    const price = prices[this.value] || 0;
+
+    priceBox.innerText = "£" + price;
+
+
+});
+
+
+
+
+
+document
+.getElementById("quoteForm")
+.addEventListener("submit", async function(e){
+
+
+e.preventDefault();
+
+
+
+const message = document.getElementById("message");
+
+
+message.innerHTML = "Creating your quote...";
+
+
+
+const quotePrice = prices[coverSelect.value] || 0;
+
+
+
+if(quotePrice === 0){
+
+message.innerHTML = "Please select a cover option.";
+
+return;
+
+}
+
+
+
+
+
+const quoteRef =
+"TC" + Math.floor(Math.random()*900000+100000);
+
+
+
+
+
+const firstName =
+document.getElementById("firstName").value;
+
+
+const lastName =
+document.getElementById("lastName").value;
+
+
+const dob =
+document.getElementById("dob").value;
+
+
+const email =
+document.getElementById("email").value;
+
+
+const phone =
+document.getElementById("phone").value;
+
+
+const occupation =
+document.getElementById("occupation").value;
+
+
+const address =
+document.getElementById("address").value;
+
+
+const licence =
+document.getElementById("licence").value;
+
+
+
+
+const registration =
+document.getElementById("registration").value.toUpperCase();
+
+
+const make =
+document.getElementById("make").value;
+
+
+const model =
+document.getElementById("model").value;
+
+
+const year =
+document.getElementById("year").value;
+
+
+const vehicleValue =
+document.getElementById("value").value;
+
+
+
+try{
+
+
+const { data:{ user } } =
+await supabaseClient.auth.getUser();
+
+
+
+
+const { error } =
+await supabaseClient
+
+.from("quotes")
+
+.insert([{
+
+
+user_id:user ? user.id : null,
+
+reference:quoteRef,
+
+first_name:firstName,
+
+last_name:lastName,
+
+date_of_birth:dob,
+
+email:email,
+
+phone:phone,
+
+occupation:occupation,
+
+address:address,
+
+driving_licence:licence,
+
+registration:registration,
+
+make:make,
+
+model:model,
+
+year:year,
+
+vehicle_value:vehicleValue,
+
+cover_type:coverSelect.value,
+
+estimated_price:quotePrice,
+
+status:"Pending"
+
+
+}]);
+
+
+
+
+
+if(error){
+
+throw error;
+
+}
+
+
+
+
+
+message.innerHTML =
+
+"Quote created successfully.<br><br>" +
+
+"Reference: <b>" + quoteRef + "</b><br><br>" +
+
+"Your quote is <b>£" + quotePrice + "</b><br><br>" +
+
+"<button id='buyButton' type='button' style='width:100%;padding:18px;background:#ff7a00;color:white;border:none;border-radius:30px;font-size:18px;font-weight:bold;'>Purchase Now</button>";
+
+
+
+
+
+}
+
+catch(err){
+
+
+console.error(err);
+
+
+message.innerHTML =
+"Error: " + err.message;
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+
+document.addEventListener("click", async function(e){
+
+
+if(e.target.id !== "buyButton") return;
+
+
+
+const button = e.target;
+
+
+button.disabled = true;
+
+button.innerText = "Starting payment...";
+
+
+
+
+try{
+
+
+const response = await fetch(
+
+"https://lvjdaizpaqjnchjvrsni.supabase.co/functions/v1/create-checkout",
+
+{
+
+
+method:"POST",
+
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+
+body:JSON.stringify({
+
+amount:
+document.getElementById("price").innerText.replace("£",""),
+
+
+email:
+document.getElementById("email").value,
+
+
+quoteRef:
+document.querySelector("#message b").innerText
+
+
+})
+
+
+}
+
+
+);
+
+
+
+
+
+const data = await response.json();
+
+
+
+
+
+if(data.url){
+
+
+window.location.href = data.url;
+
+
+}
+
+else{
+
+
+alert(data.error || "Unable to start payment.");
+
+button.disabled=false;
+
+button.innerText="Purchase Now";
+
+
+}
+
+
+
+}
+
+
+catch(err){
+
+
+console.error(err);
+
+
+alert("Payment failed.");
+
+
+button.disabled=false;
+
+
+button.innerText="Purchase Now";
+
+
+}
+
+
+
+});
+
+
+
+</script>
+
+
+</body>
+
+</html>
