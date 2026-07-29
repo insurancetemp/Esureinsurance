@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TempCover | Customer Login</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+background:#f7f7f7;
+
+background:
+linear-gradient(
+180deg,
+#ff7a00 0%,
+#ff8f1f 220px,
+#f7f7f7 220px
+);
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:25px;
+
+}
+
+.login-card{
+
+width:100%;
+max-width:420px;
+
+background:#fff;
+
+border-radius:28px;
+
+padding:40px 30px;
+
+box-shadow:
+0 20px 45px rgba(0,0,0,.12);
+
+}
+
+.logo{
+
+width:72px;
+height:72px;
+
+border-radius:20px;
+
+background:#ff7a00;
+
+color:#fff;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:34px;
+
+margin:0 auto 20px;
+
+font-weight:bold;
+
+}
+
+h1{
+
+text-align:center;
+
+font-size:32px;
+
+color:#222;
+
+margin-bottom:8px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+color:#666;
+
+font-size:15px;
+
+line-height:1.6;
+
+margin-bottom:35px;
+
+}
+
+.input-group{
+
+margin-bottom:20px;
+
+}
+
+.input-group label{
+
+display:block;
+
+font-weight:600;
+
+margin-bottom:8px;
+
+color:#333;
+
+}
+
+.input-group input{
+
+width:100%;
+
+padding:16px;
+
+border:1px solid #ddd;
+
+border-radius:16px;
+
+font-size:16px;
+
+transition:.25s;
+
+}
+
+.input-group input:focus{
+
+outline:none;
+
+border-color:#ff7a00;
+
+box-shadow:0 0 0 4px rgba(255,122,0,.15);
+
+}
+.login-button{
+
+width:100%;
+
+padding:18px;
+
+border:none;
+
+border-radius:16px;
+
+background:#ff7a00;
+
+color:#fff;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.25s;
+
+margin-top:10px;
+
+}
+
+.login-button:hover{
+
+background:#e86e00;
+
+}
+
+.login-button:disabled{
+
+opacity:.7;
+
+cursor:not-allowed;
+
+}
+
+.links{
+
+margin-top:25px;
+
+text-align:center;
+
+}
+
+.links a{
+
+color:#ff7a00;
+
+text-decoration:none;
+
+font-weight:600;
+
+}
+
+.links a:hover{
+
+text-decoration:underline;
+
+}
+
+.security{
+
+margin-top:30px;
+
+padding:16px;
+
+background:#fff7f0;
+
+border-radius:16px;
+
+border:1px solid #ffe0c2;
+
+text-align:center;
+
+font-size:14px;
+
+color:#666;
+
+line-height:1.6;
+
+}
+
+.message{
+
+margin-top:20px;
+
+text-align:center;
+
+font-weight:bold;
+
+}
+
+@media(max-width:600px){
+
+.login-card{
+
+padding:30px 22px;
+
+}
+
+h1{
+
+font-size:28px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-card">
+
+<div class="logo">TC</div>
+
+<h1>Welcome Back</h1>
+
+<p class="subtitle">
+Sign in to access your TempCover account, view your active policies and download your insurance documents.
+</p>
+
+<form id="loginForm">
+
+<div class="input-group">
+
+<label>Email Address</label>
+
+<input
+type="email"
+id="email"
+placeholder="Enter your email"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Password</label>
+
+<input
+type="password"
+id="password"
+placeholder="Enter your password"
+required>
+
+</div>
+
+<button
+type="submit"
+class="login-button">
+
+Sign In
+
+</button>
+
+<div
+class="message"
+id="message"></div>
+
+</form>
+
+<div class="links">
+
+<p>
+<a href="#">Forgot your password?</a>
+</p>
+
+<br>
+
+<p>
+Don't have an account?
+<a href="register.html">Create Account</a>
+</p>
+
+</div>
+
+<div class="security">
+
+🔒 Your information is protected using secure encrypted authentication.
+
+</div>
+
+</div>
+<script>
+
+document
+.getElementById("loginForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const message =
+document.getElementById("message");
+
+const button =
+document.querySelector(".login-button");
+
+button.disabled = true;
+button.innerText = "Signing In...";
+
+message.style.color = "#666";
+message.innerText = "";
+
+const email =
+document.getElementById("email").value.trim();
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+const { error } =
+await supabaseClient.auth.signInWithPassword({
+
+email: email,
+
+password: password
+
+});
+
+if(error){
+
+throw error;
+
+}
+
+message.style.color = "#28a745";
+
+message.innerText =
+"Login successful. Redirecting...";
+
+setTimeout(function(){
+
+window.location.href = "database.html";
+
+},1000);
+
+}
+catch(err){
+
+message.style.color = "#d32f2f";
+
+message.innerText =
+err.message || "Unable to sign in.";
+
+button.disabled = false;
+
+button.innerText = "Sign In";
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
