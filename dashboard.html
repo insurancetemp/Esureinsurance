@@ -948,18 +948,16 @@ background:#005aa5;
 <script>
 
 
-async function loadCustomerPortal(){
+asyncfunction loadCustomerPortal(){
 
-const { data:{ user } } = await supabaseClient.auth.getUser();
-
-
-if(!user){
+const{ data:{ user } } = awaitsupabaseClient.auth.getUser();
+if(!user)
+{
 
 console.log("No user logged in");
 return;
 
 }
-
 
 // Show customer portal
 
@@ -968,7 +966,7 @@ document.getElementById("customerPortal").style.display="block";
 
 // Get profile
 
-const { data:profile } = await supabaseClient
+const { data:profile } = awaitsupabaseClient
 .from("profiles")
 .select("*")
 .eq("id", user.id)
@@ -991,7 +989,7 @@ document.getElementById("portalAddress").innerHTML =
 
 // Get latest quote
 
-const { data:quote } = await supabase
+const { data:quote } = await supabaseClient
 .from("quotes")
 .select("*")
 .eq("user_id", user.id)
@@ -1024,7 +1022,7 @@ quote.estimated_price;
 
 // LOAD ACTIVE POLICY
 
-const { data:policy } = await supabase
+const { data:policy } = await supabaseClient
 .from("policies")
 .select("*")
 .eq("user_id", user.id)
@@ -1079,9 +1077,8 @@ window.location.reload();
 loadCustomerPortal();
 
 
-
 document.getElementById("purchasePortalButton")
-.addEventListener("click", async function(){
+.addEventListener("click", asyncfunction(){
 
 this.disabled = true;
 this.innerText = "Starting payment...";
@@ -1103,7 +1100,7 @@ return;
 
 // Get latest quote
 
-const { data:quote, error } = await supabase
+const { data:quote, error } = await supabaseClient
 .from("quotes")
 .select("*")
 .eq("user_id", user.id)
@@ -1145,9 +1142,7 @@ amount: quote.estimated_price
 
 });
 
-
 const result = await response.json();
-
 
 
 if(result.url){
