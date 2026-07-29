@@ -506,3 +506,157 @@ body {
 
 
 }
+/* ==============================
+   ACTIVE POLICY SUMMARY
+   ============================== */
+
+
+.policy-summary {
+
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+
+}
+
+
+.policy-summary h2 {
+
+    margin: 0;
+
+    font-size: 20px;
+
+}
+
+
+
+.policy-number {
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    margin: 10px 0;
+
+}
+
+
+
+.policy-summary p {
+
+    color: #6b7280;
+
+    margin: 0;
+
+}
+
+
+
+
+
+/* ==============================
+   TRUST BOXES
+   ============================== */
+
+
+.trust-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+}
+
+
+
+.trust-box {
+
+    background: white;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    min-height: 130px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+
+}
+
+
+
+.trust-icon {
+
+    font-size: 30px;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+.trust-box h3 {
+
+    font-size: 15px;
+
+    margin: 0;
+
+}
+
+
+
+.trust-box p {
+
+    font-size: 13px;
+
+    color: #6b7280;
+
+    margin-top: 8px;
+
+}
+
+
+
+
+
+/* ==============================
+   YOUR VEHICLES TITLE
+   ============================== */
+
+
+.vehicle-title {
+
+    font-size: 24px;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+
+
+/* ==============================
+   FAQ ICONS
+   ============================== */
+
+
+.faq-icon {
+
+    font-size: 32px;
+
+    margin-bottom: 12px;
+
+}
