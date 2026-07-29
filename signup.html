@@ -214,7 +214,7 @@ const password = document.getElementById("password").value;
 
 try {
 
-const { data, error } = await supabase.auth.signUp({
+const { data, error } = await supabaseClient.auth.signUp({
 
 email: email,
 
@@ -228,7 +228,7 @@ const user = data.user;
 
 if (user) {
 
-const { error: profileError } = await supabase
+const { error: profileError } = await supabaseClient
 .from("profiles")
 .insert([{
 
