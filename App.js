@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     loadProfile(user.id);
     loadPolicy(user.id);
+    loadActivePolicyCount(user.id);
 
 });
 
@@ -71,7 +72,7 @@ async function loadProfile(userId) {
         data.phone || "";
 
     document.getElementById("profileLicence").textContent =
-        data.driving_licence || "";
+        data.driving_license || "";
 
 }
 
@@ -370,4 +371,28 @@ setInterval(function () {
     refreshPolicyStatus();
 
 }, 60000);
+// ---------------------------------
+// LOAD ACTIVE POLICY COUNT
+// ---------------------------------
 
+async function loadActivePolicyCount(userId) {
+
+    const { data, error } = await supabaseClient
+        .from("policies")
+        .select("id", { count: "exact" })
+        .eq("user_id", userId)
+        .eq("status", "ACTIVE");
+
+
+    if (error) {
+
+        console.log(error);
+        return;
+
+    }
+
+
+    document.getElementById("activePolicyCount").textContent =
+        data.length;
+
+}
