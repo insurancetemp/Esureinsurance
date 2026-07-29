@@ -387,7 +387,7 @@ document.getElementById("quoteForm").addEventListener("submit", async function(e
     const vehicleValue = document.getElementById("value").value;
 
     try{
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await supabaseClient.auth.getUser();
         const { error } = await supabaseClient
         .from("quotes")
         .insert([{
