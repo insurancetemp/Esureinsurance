@@ -189,7 +189,7 @@ const password=document.getElementById("password").value;
 
 try{
 
-const {error}=await supabase.auth.signInWithPassword({
+const {error}=await supabaseClient.auth.signInWithPassword({
 
 email,
 password
