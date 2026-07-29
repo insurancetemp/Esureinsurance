@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tempcover | Insurance Portal</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+
+body{
+
+background:#f5f7fb;
+padding-bottom:90px;
+color:#222;
+
+}
+
+
+/* HEADER */
+
+.header{
+
+background:#ff8a00;
+color:white;
+padding:25px 20px 35px;
+border-radius:0 0 30px 30px;
+
+}
+
+
+.logo{
+
+font-size:30px;
+font-weight:800;
+
+}
+
+
+.header p{
+
+margin-top:5px;
+opacity:.9;
+
+}
+
+
+
+/* MAIN */
+
+.container{
+
+max-width:500px;
+margin:-15px auto 0;
+padding:20px;
+
+}
+
+
+
+/* WELCOME */
+
+
+.welcome h2{
+
+font-size:26px;
+color:#003b73;
+
+}
+
+
+.welcome p{
+
+color:#666;
+margin-top:5px;
+
+}
+
+
+
+/* ACTIVE COUNT */
+
+
+.count-card{
+
+background:white;
+margin-top:20px;
+padding:20px;
+border-radius:22px;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+.count-card h3{
+
+color:#003b73;
+font-size:16px;
+
+}
+
+
+.count-number{
+
+font-size:42px;
+font-weight:800;
+color:#ff8a00;
+margin-top:5px;
+
+}
+
+
+
+/* SECTION TITLE */
+
+
+.section-title{
+
+margin:25px 0 15px;
+font-size:18px;
+color:#003b73;
+
+}
+
+
+
+/* POLICY CARD */
+
+
+.policy-card{
+
+background:#dff1ff;
+border-radius:25px;
+padding:25px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+
+.small-title{
+
+font-size:13px;
+font-weight:bold;
+color:#0066aa;
+text-transform:uppercase;
+
+}
+
+
+.vehicle-name{
+
+font-size:30px;
+font-weight:800;
+margin-top:10px;
+
+}
+
+
+.vehicle-details{
+
+color:#555;
+margin-top:5px;
+
+}
+
+
+.cover-type{
+
+font-weight:bold;
+font-size:17px;
+margin-top:20px;
+
+}
+
+
+
+/* TIMER */
+
+
+.timer-title{
+
+margin-top:25px;
+color:#555;
+
+}
+
+
+.timer{
+
+display:flex;
+gap:8px;
+margin-top:10px;
+
+}
+
+
+.timer-box{
+
+background:white;
+padding:12px 5px;
+border-radius:15px;
+flex:1;
+text-align:center;
+
+}
+
+
+.timer-box strong{
+
+display:block;
+font-size:22px;
+color:#003b73;
+
+}
+
+
+.timer-box span{
+
+font-size:10px;
+color:#777;
+
+}
+
+
+
+/* BUTTON */
+
+
+.details-button{
+
+display:block;
+background:#003b73;
+color:white;
+text-decoration:none;
+text-align:center;
+padding:15px;
+border-radius:15px;
+margin-top:25px;
+font-weight:bold;
+
+}
+
+
+
+/* PREVIOUS POLICY */
+
+
+.previous-card{
+
+background:white;
+border-radius:20px;
+padding:20px;
+margin-bottom:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+
+.previous-name{
+
+font-weight:800;
+font-size:18px;
+
+}
+
+
+.previous-reg{
+
+font-size:13px;
+color:#777;
+margin-top:5px;
+
+}
+
+
+.expired{
+
+text-align:right;
+color:#d9534f;
+font-weight:bold;
+
+}
+
+
+.expired-date{
+
+font-size:12px;
+color:#777;
+margin-top:5px;
+
+}
+
+
+
+/* BOTTOM NAV */
+
+
+.nav{
+
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:75px;
+background:white;
+display:flex;
+justify-content:space-around;
+align-items:center;
+box-shadow:0 -5px 20px rgba(0,0,0,.1);
+
+}
+
+
+.nav a{
+
+text-decoration:none;
+color:#003b73;
+font-size:12px;
+text-align:center;
+
+}
+
+
+.nav strong{
+
+display:block;
+font-size:23px;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+<div class="logo">
+Tempcover
+</div>
+
+<p>
+Your insurance portal
+</p>
+
+</div>
+
+
+<div class="container">
+
+
+<div class="welcome">
+
+<h2>
+Welcome <span id="customerName">...</span> 👋
+</h2>
+
+<p>
+Your insurance portal
+</p>
+
+</div>
+
+
+<div class="count-card">
+
+<h3>
+Active Policies
+</h3>
+
+<div class="count-number" id="activeCount">
+0
+</div>
+
+</div>
+
+
+<h3 class="section-title">
+Your current car in force
+</h3>
+
+
+<div class="policy-card">
+
+
+<div class="small-title">
+My Active Policy
+</div>
+
+
+<div class="vehicle-name" id="vehicleName">
+Loading...
+</div>
+
+
+<div class="vehicle-details" id="vehicleDetails">
+Loading...
+</div>
+
+
+<div class="cover-type" id="coverType">
+Loading...
+</div>
+
+
+<div class="timer-title">
+Time Remaining
+</div>
+
+
+<div class="timer">
+
+
+<div class="timer-box">
+<strong id="days">00</strong>
+<span>DAYS</span>
+</div>
+
+
+<div class="timer-box">
+<strong id="hours">00</strong>
+<span>HOURS</span>
+</div>
+
+
+<div class="timer-box">
+<strong id="minutes">00</strong>
+<span>MIN</span>
+</div>
+
+
+<div class="timer-box">
+<strong id="seconds">00</strong>
+<span>SEC</span>
+</div>
+
+
+</div>
+
+
+<a href="policy.html" class="details-button">
+View Policy Details
+</a>
+
+
+</div>
+<h3 class="section-title">
+Previous Policies
+</h3>
+
+
+<div id="previousPolicies">
+
+
+<div class="previous-card">
+
+
+<div>
+
+<div class="previous-name">
+Loading...
+</div>
+
+<div class="previous-reg">
+Loading...
+</div>
+
+</div>
+
+
+<div class="expired">
+
+Expired
+
+<div class="expired-date">
+Loading...
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<div class="nav">
+
+
+<a href="dashboard.html">
+
+<strong>🏠</strong>
+
+Home
+
+</a>
+
+
+<a href="profile.html">
+
+<strong>👤</strong>
+
+Profile
+
+</a>
+
+
+<a href="faq.html">
+
+<strong>❓</strong>
+
+FAQ
+
+</a>
+
+
+<a href="#" onclick="logout()">
+
+<strong>🚪</strong>
+
+Logout
+
+</a>
+
+
+</div>
+<script>
+
+let timerInterval;
+
+
+async function loadDashboard(){
+
+
+const {data:{user}} = await supabaseClient.auth.getUser();
+
+
+if(!user){
+
+window.location.href="login.html";
+return;
+
+}
+
+
+
+
+// LOAD PROFILE NAME
+
+const {data:profile}=await supabaseClient
+
+.from("profiles")
+
+.select("*")
+
+.eq("id",user.id)
+
+.single();
+
+
+
+if(profile){
+
+document.getElementById("customerName").textContent =
+profile.full_name || "Customer";
+
+}
+
+
+
+
+
+// LOAD POLICIES
+
+const {data:policies,error}=await supabaseClient
+
+.from("policies")
+
+.select("*")
+
+.eq("user_id",user.id)
+
+.order("created_at",{ascending:false});
+
+
+
+
+if(error){
+
+console.log(error);
+return;
+
+}
+
+
+
+
+const activePolicies = policies.filter(
+p => p.status === "Active"
+);
+
+
+
+document.getElementById("activeCount").textContent =
+activePolicies.length;
+
+
+
+
+// CURRENT ACTIVE POLICY
+
+
+if(activePolicies.length > 0){
+
+
+const policy = activePolicies[0];
+
+
+
+document.getElementById("vehicleName").textContent =
+
+(policy.make || "") + " " + (policy.model || "");
+
+
+
+document.getElementById("vehicleDetails").textContent =
+
+"Reg: " + (policy.registration || "-") +
+" • " +
+(policy.year || "-");
+
+
+
+document.getElementById("coverType").textContent =
+
+policy.cover_type || "Fully Comprehensive";
+
+
+
+startTimer(policy.end_date);
+
+
+
+}else{
+
+
+document.getElementById("vehicleName").textContent =
+"No active policy";
+
+
+document.getElementById("vehicleDetails").textContent =
+"";
+
+
+document.getElementById("coverType").textContent =
+"";
+
+
+}
+
+
+
+
+// PREVIOUS POLICIES
+
+
+const previous = policies.filter(
+p => p.status === "Expired"
+);
+
+
+
+const previousBox =
+document.getElementById("previousPolicies");
+
+
+
+previousBox.innerHTML="";
+
+
+
+if(previous.length === 0){
+
+
+previousBox.innerHTML = `
+
+<div class="previous-card">
+
+<div>
+
+<div class="previous-name">
+No previous policies
+</div>
+
+</div>
+
+</div>
+
+`;
+
+
+}else{
+
+
+previous.forEach(policy=>{
+
+
+const expiryDate = new Date(
+policy.end_date
+).toLocaleDateString("en-GB");
+
+
+
+previousBox.innerHTML += `
+
+<div class="previous-card">
+
+
+<div>
+
+<div class="previous-name">
+
+${policy.make || ""} ${policy.model || ""}
+
+</div>
+
+
+<div class="previous-reg">
+
+${policy.registration || "-"}
+
+</div>
+
+
+</div>
+
+
+
+<div class="expired">
+
+Expired
+
+
+<div class="expired-date">
+
+${expiryDate}
+
+</div>
+
+
+</div>
+
+
+</div>
+
+`;
+
+
+});
+
+
+}
+
+
+
+}
+
+
+
+
+
+function startTimer(endDate){
+
+
+clearInterval(timerInterval);
+
+
+
+function update(){
+
+
+const now = new Date().getTime();
+
+const end = new Date(endDate).getTime();
+
+
+const distance = end - now;
+
+
+
+if(distance <= 0){
+
+document.getElementById("days").textContent="00";
+document.getElementById("hours").textContent="00";
+document.getElementById("minutes").textContent="00";
+document.getElementById("seconds").textContent="00";
+
+return;
+
+}
+
+
+
+
+const days = Math.floor(
+distance / (1000*60*60*24)
+);
+
+
+
+const hours = Math.floor(
+(distance % (1000*60*60*24))
+/
+(1000*60*60)
+);
+
+
+
+const minutes = Math.floor(
+(distance % (1000*60*60))
+/
+(1000*60)
+);
+
+
+
+const seconds = Math.floor(
+(distance % (1000*60))
+/
+1000
+);
+
+
+
+document.getElementById("days").textContent =
+String(days).padStart(2,"0");
+
+
+document.getElementById("hours").textContent =
+String(hours).padStart(2,"0");
+
+
+document.getElementById("minutes").textContent =
+String(minutes).padStart(2,"0");
+
+
+document.getElementById("seconds").textContent =
+String(seconds).padStart(2,"0");
+
+
+
+}
+
+
+
+update();
+
+timerInterval=setInterval(update,1000);
+
+
+
+}
+
+
+
+
+
+async function logout(){
+
+await supabaseClient.auth.signOut();
+
+window.location.href="login.html";
+
+
+}
+
+
+
+loadDashboard();
+
+
+</script>
+
+
+</body>
+
+</html>
