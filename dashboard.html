@@ -947,55 +947,78 @@ background:#005aa5;
 
 <script>
 
+async function loadCustomerPortal(){
 
-asyncfunction loadCustomerPortal(){
 
-const{ data:{ user } } = awaitsupabaseClient.auth.getUser();
-if(!user)
-{
+const { data:{ user } } = await supabaseClient.auth.getUser();
+
+
+if(!user){
 
 console.log("No user logged in");
+
 return;
 
 }
 
+
 // Show customer portal
 
-document.getElementById("customerPortal").style.display="block";
+const portal = document.getElementById("customerPortal");
+
+if(portal){
+
+portal.style.display="block";
+
+}
+
 
 
 // Get profile
 
-const { data:profile } = awaitsupabaseClient
+const { data:profile, error:profileError } = await supabaseClient
 .from("profiles")
 .select("*")
 .eq("id", user.id)
 .single();
 
 
+
 if(profile){
+
 
 document.getElementById("welcomeUser").innerHTML =
 "Welcome, " + profile.full_name;
 
+
 document.getElementById("portalEmail").innerHTML =
 "Email: " + profile.email;
+
 
 document.getElementById("portalAddress").innerHTML =
 "Address: " + profile.address;
 
+
 }
+
+
 
 
 // Get latest quote
 
-const { data:quote } = await supabaseClient
+
+const { data:quote, error:quoteError } = await supabaseClient
 .from("quotes")
 .select("*")
 .eq("user_id", user.id)
 .order("created_at",{ascending:false})
 .limit(1)
 .single();
+
+
+
+console.log("Quote:", quote);
+console.log("Quote error:", quoteError);
 
 
 
@@ -1015,20 +1038,28 @@ quote.cover_type;
 
 
 document.getElementById("portalPrice").innerHTML =
-quote.estimated_price;
+"£" + quote.estimated_price;
 
 
 }
 
+
+
 // LOAD ACTIVE POLICY
 
-const { data:policy } = await supabaseClient
+
+const { data:policy, error:policyError } = await supabaseClient
 .from("policies")
 .select("*")
 .eq("user_id", user.id)
 .order("created_at",{ascending:false})
 .limit(1)
 .single();
+
+
+
+console.log("Policy:", policy);
+console.log("Policy error:", policyError);
 
 
 
@@ -1052,24 +1083,15 @@ policy.cover_type;
 
 
 document.getElementById("portalPrice").innerHTML =
-policy.price;
-
-
-}  
-
-// Logout
-
-document.getElementById("logoutButton")
-.addEventListener("click", async()=>{
-
-await supabaseClient.auth.signOut();
-
-window.location.reload();
-
-});
+"£" + policy.price;
 
 
 }
+
+
+
+}
+
 
 
 // Run portal loader
@@ -1077,11 +1099,19 @@ window.location.reload();
 loadCustomerPortal();
 
 
+
+
+// PURCHASE BUTTON
+
+
 document.getElementById("purchasePortalButton")
-.addEventListener("click", asyncfunction(){
+.addEventListener("click", async function(){
+
 
 this.disabled = true;
+
 this.innerText = "Starting payment...";
+
 
 
 try{
@@ -1090,15 +1120,16 @@ try{
 const { data:{ user } } = await supabaseClient.auth.getUser();
 
 
+
 if(!user){
 
 alert("Please login first");
+
 return;
 
 }
 
 
-// Get latest quote
 
 const { data:quote, error } = await supabaseClient
 .from("quotes")
@@ -1113,21 +1144,26 @@ const { data:quote, error } = await supabaseClient
 if(error || !quote){
 
 alert("No quote found");
+
 return;
 
 }
 
 
 
-// Send to Stripe function
 
 const response = await fetch(
+
 "https://lvjdaizpaqjnchjvrsni.supabase.co/functions/v1/create-checkout",
+
 {
+
 method:"POST",
 
 headers:{
+
 "Content-Type":"application/json"
+
 },
 
 body:JSON.stringify({
@@ -1140,9 +1176,14 @@ amount: quote.estimated_price
 
 })
 
-});
+}
+
+);
+
+
 
 const result = await response.json();
+
 
 
 if(result.url){
@@ -1152,9 +1193,11 @@ window.location.href = result.url;
 }else{
 
 console.log(result);
+
 alert("Payment could not be started");
 
 }
+
 
 
 }
@@ -1162,27 +1205,38 @@ alert("Payment could not be started");
 catch(error){
 
 console.log(error);
+
 alert("Payment error");
 
 }
+
 
 
 });
 
 
 
-supabaseClient.auth.onAuthStateChange(async (event, session)=>{
+
+// AUTH LISTENER
+
+
+supabaseClient.auth.onAuthStateChange(
+async (event, session)=>{
 
 
 if(session){
 
 
-console.log("Customer logged in:", session.user.email);
+console.log(
+"Customer logged in:",
+session.user.email
+);
 
 
-// Hide login section if it exists
 
-const loginSection = document.getElementById("loginSection");
+const loginSection =
+document.getElementById("loginSection");
+
 
 if(loginSection){
 
@@ -1191,9 +1245,10 @@ loginSection.style.display="none";
 }
 
 
-// Show portal
 
-const portal = document.getElementById("customerPortal");
+const portal =
+document.getElementById("customerPortal");
+
 
 if(portal){
 
@@ -1202,9 +1257,9 @@ portal.style.display="block";
 }
 
 
-// Reload customer details
 
 loadCustomerPortal();
+
 
 
 }else{
@@ -1218,7 +1273,5 @@ console.log("No customer session");
 
 });
 
-</script>  
-  
-</body> 
-</html>    
+
+</script>
