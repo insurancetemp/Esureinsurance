@@ -265,5 +265,120 @@ document.addEventListener("DOMContentLoaded", async function(){
     loadPolicy();
 
 
+// CERTIFICATE DOWNLOAD
 
+document.getElementById("downloadCertificate")
+.addEventListener("click", async function(){
+
+
+    const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
+
+
+
+    if(!user){
+
+        alert("Please login again");
+        return;
+
+    }
+
+
+
+    const { data, error } = await supabaseClient
+    .from("policies")
+    .select("certificate_url")
+    .eq("user_id", user.id)
+    .single();
+
+
+
+    if(error){
+
+        console.log(error);
+        alert("Unable to find certificate");
+        return;
+
+    }
+
+
+
+    if(data.certificate_url){
+
+
+        window.open(
+            data.certificate_url,
+            "_blank"
+        );
+
+
+    } else {
+
+
+        alert(
+            "Certificate is not available yet"
+        );
+
+
+    }
+
+
+});
+
+
+
+
+// UPDATE POLICY STATUS
+
+async function updatePolicyStatus(){
+
+
+    const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
+
+
+
+    if(!user) return;
+
+
+
+    const { data, error } = await supabaseClient
+    .from("policies")
+    .select("status")
+    .eq("user_id", user.id)
+    .single();
+
+
+
+    if(error){
+
+        console.log(error);
+        return;
+
+    }
+
+
+
+    if(data.status){
+
+
+        const statusElement =
+        document.querySelector(".active-status");
+
+
+
+        statusElement.textContent =
+        data.status.toUpperCase();
+
+
+
+    }
+
+
+}
+
+
+updatePolicyStatus();
 });
