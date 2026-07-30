@@ -269,8 +269,6 @@ button{
     <td>Date of Expiry</td>
     <td id="endCell"></td>
 </tr>
-        document.getElementById("policyholderCell").textContent =
-    policy.fullName || "";
 
 <tr>
     <td>6</td>
@@ -361,6 +359,9 @@ if (policy) {
         "<strong>" + (policy.make || "") + " " + (policy.model || "") + "</strong><br>" +
         "Registration: <strong>" + (policy.registration || "") + "</strong><br>" +
         "Year: " + (policy.year || "");
+
+    document.getElementById("policyholderCell").textContent =
+    policy.fullName || "";
 
     document.getElementById("startCell").textContent =
         policy.start_time || "";
