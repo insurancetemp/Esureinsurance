@@ -361,15 +361,16 @@ if (policy) {
         "Year: " + (policy.year || "");
 
     document.getElementById("policyholderCell").textContent =
-    policy.fullName || "";
+        policy.full_name || "";
 
     document.getElementById("startCell").textContent =
-        policy.start_time || "";
+        policy.coverStart || "";
 
     document.getElementById("endCell").textContent =
-        policy.expiry_time || "";
+        policy.coverEnd || "";
 
 }
+</script>
 </script>
 </body>
 </html>
