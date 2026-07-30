@@ -280,38 +280,11 @@ document
 
 document
 .getElementById("downloadCertificate")
-.addEventListener("click", async function () {
+.addEventListener("click", function () {
 
-    const {
-        data: { user }
-    } = await supabaseClient.auth.getUser();
-
-    if (!user) {
-        alert("Please log in again.");
-        return;
-    }
-
-    const { data, error } = await supabaseClient
-        .from("policies")
-        .select("certificate_url")
-        .eq("user_id", user.id)
-        .eq("status", "ACTIVE")
-        .single();
-
-    if (error) {
-        alert("Unable to load your certificate.");
-        return;
-    }
-
-    if (!data.certificate_url) {
-        alert("Certificate not available yet.");
-        return;
-    }
-
-    window.open(data.certificate_url, "_blank");
+    window.location.href = "certificate.html";
 
 });
-
 
 
 // ---------------------------------
