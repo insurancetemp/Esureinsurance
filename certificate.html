@@ -238,47 +238,51 @@ button{
 
     </div>
 
-    <table>
+    <table class="certificate-table">
 
-        <tr>
-            <td>1</td>
-            <td>Description of Vehicle</td>
-           <td id="vehicleCell"></td>
-        </tr>
+<tr>
+    <td>1</td>
+    <td>Description of Vehicle</td>
+    <td id="vehicleCell"></td>
+</tr>
 
-        <tr>
-            <td>2</td>
-            <td>Name of Policyholder</td>
-            <td id="holderCell"></td>
-        </tr>
+<tr>
+    <td>2</td>
+    <td>Name of Policyholder</td>
+    <td id="policyholderCell"></td>
+</tr>
 
-        <tr>
-            <td>3</td>
-            <td>Persons Entitled to Drive</td>
-            <td>The Policyholder named above.</td>
-        </tr>
-                <tr>
-            <td>4</td>
-            <td>Effective Date of Insurance</td>
-            <td id="coverStart"></td>
-        </tr>
+<tr>
+    <td>3</td>
+    <td>Persons Entitled to Drive</td>
+    <td>The Policyholder named above.</td>
+</tr>
 
-        <tr>
-            <td>5</td>
-            <td>Date of Expiry</td>
-            <td id="endCell"></td>
-        </tr>
+<tr>
+    <td>4</td>
+    <td>Effective Date of Insurance</td>
+    <td id="startCell"></td>
+</tr>
 
-        <tr>
-            <td>6</td>
-            <td>Permitted Use</td>
-            <td>
-                Social, Domestic &amp; Pleasure<br>
-                Business Use (where shown on the policy schedule)
-            </td>
-        </tr>
+<tr>
+    <td>5</td>
+    <td>Date of Expiry</td>
+    <td id="endCell"></td>
+</tr>
+        document.getElementById("policyholderCell").textContent =
+    policy.fullName || "";
 
-    </table>
+<tr>
+    <td>6</td>
+    <td>Permitted Use</td>
+    <td>
+        Social, Domestic &amp; Pleasure<br>
+        Business Use (where shown on the policy schedule)
+    </td>
+</tr>
+
+</table>
+
 
     <div class="section-title">
         Certificate Declaration
