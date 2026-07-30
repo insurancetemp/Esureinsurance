@@ -323,13 +323,63 @@ const supabaseClient = supabase.createClient(
 document.addEventListener("DOMContentLoaded", loadCertificate);
 
 async function loadCertificate(){
-const {
-    data: { user }
-} = await supabaseClient.auth.getUser();
 
-if (!user) {
-    window.location.href = "login.html";
-    return;
+    const {
+        data:{ user }
+    } = await supabaseClient.auth.getUser();
+
+
+    if(!user){
+
+        window.location.href="login.html";
+        return;
+
+    }
+
+
+    const { data, error } = await supabaseClient
+        .from("policies")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("status", "ACTIVE")
+        .single();
+
+
+    if(error || !data){
+
+        alert("Unable to load your policy certificate.");
+        return;
+
+    }
+
+
+    document.getElementById("policyNumber").textContent =
+        data.policy_number || "";
+
+
+    document.getElementById("insuredName").textContent =
+        data.full_name || "";
+
+
+    document.getElementById("vehicle").textContent =
+        data.make + " " + data.model;
+
+
+    document.getElementById("registration").textContent =
+        data.registration || "";
+
+
+    document.getElementById("startDate").textContent =
+        new Date(data.start_time).toLocaleString();
+
+
+    document.getElementById("endDate").textContent =
+        new Date(data.expiry_time).toLocaleString();
+
+
+    document.getElementById("coverType").textContent =
+        data.cover_type || "";
+
 }
 
 const { data, error } = await supabaseClient
