@@ -307,35 +307,66 @@ This certificate has been generated electronically through the Temp Cover custom
 </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
-const policy = JSON.parse(localStorage.getItem("policy") || "{}");
 
-if (policy.policyNumber) {
-  document.getElementById("policyNumber").textContent = policy.policyNumber;
+const SUPABASE_URL = "https://lvjdaizpaqjnchjvrsni.supabase.co";
+
+const SUPABASE_ANON_KEY = "sb_publishable_fnag8tkEEClWTLVR7fL1sQ_3_rbAzEc";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+document.addEventListener("DOMContentLoaded", loadCertificate);
+
+async function loadCertificate(){
+const {
+    data: { user }
+} = await supabaseClient.auth.getUser();
+
+if (!user) {
+    window.location.href = "login.html";
+    return;
 }
 
-if (policy.name) {
-  document.getElementById("insuredName").textContent = policy.name;
+const { data, error } = await supabaseClient
+    .from("policies")
+    .select("*")
+    .eq("user_id", user.id)
+    .eq("status", "ACTIVE")
+    .single();
+
+if (error || !data) {
+    alert("Unable to load your certificate.");
+    return;
 }
 
-if (policy.vehicle) {
-  document.getElementById("vehicle").textContent = policy.vehicle;
-}
+document.getElementById("policyNumber").textContent =
+    data.policy_number || "Not Available";
 
-if (policy.registration) {
-  document.getElementById("registration").textContent = policy.registration;
-}
+document.getElementById("vehicle").textContent =
+    (data.make || "") + " " + (data.model || "");
 
-if (policy.startDate) {
-  document.getElementById("startDate").textContent = policy.startDate;
-}
+document.getElementById("registration").textContent =
+    data.registration || "";
 
-if (policy.endDate) {
-  document.getElementById("endDate").textContent = policy.endDate;
-}
+document.getElementById("startDate").textContent =
+    data.start_time || "";
+
+document.getElementById("endDate").textContent =
+    data.expiry_time || "";
+  
+document.getElementById("coverType").textContent =
+    data.cover_type || "Fully Comprehensive";
+  
+document.getElementById("insuredName").textContent =
+    data.full_name || "Policyholder";
+  
 </script>
 
-</body>
-</html>
+
 </body>
 </html>
