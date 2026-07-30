@@ -346,6 +346,56 @@ button{
 
 </div>
 
+<script>
 
+const policy = JSON.parse(sessionStorage.getItem("certificateData"));
+
+if (policy) {
+
+    function setText(selector, value) {
+        const el = document.querySelector(selector);
+        if (el) el.textContent = value || "";
+    }
+
+    // Policy Number
+    setText(".policy-number p", policy.policy_number);
+
+    // Policyholder
+    const holderCell = document.querySelector("table tr:nth-child(2) td:nth-child(3)");
+    if (holderCell) {
+        holderCell.textContent =
+            policy.full_name || policy.policyholder || "";
+    }
+
+    // Vehicle
+    const vehicleCell = document.querySelector("table tr:nth-child(1) td:nth-child(3)");
+    if (vehicleCell) {
+        vehicleCell.innerHTML =
+            "<strong>" +
+            (policy.make || "") +
+            " " +
+            (policy.model || "") +
+            "</strong><br>" +
+            "Registration: <strong>" +
+            (policy.registration || "") +
+            "</strong><br>" +
+            "Year: " +
+            (policy.year || "");
+    }
+
+    // Cover Dates
+    const startCell = document.querySelector("table tr:nth-child(4) td:nth-child(3)");
+    if (startCell)
+        startCell.textContent =
+            new Date(policy.start_time || policy.cover_start).toLocaleString();
+
+    const endCell = document.querySelector("table tr:nth-child(5) td:nth-child(3)");
+    if (endCell)
+        endCell.textContent =
+            new Date(policy.expiry_time || policy.cover_end).toLocaleString();
+
+}
+
+</script>
 </body>
 </html>
