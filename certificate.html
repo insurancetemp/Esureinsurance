@@ -243,17 +243,13 @@ button{
         <tr>
             <td>1</td>
             <td>Description of Vehicle</td>
-            <td>
-                <strong>{{make}} {{model}}</strong><br>
-                Registration: <strong>{{registration}}</strong><br>
-                Year: {{year}}
-            </td>
+           <td id="vehicleCell"></td>
         </tr>
 
         <tr>
             <td>2</td>
             <td>Name of Policyholder</td>
-            <td>{{fullName}}</td>
+            <td id="holderCell"></td>
         </tr>
 
         <tr>
@@ -264,13 +260,13 @@ button{
                 <tr>
             <td>4</td>
             <td>Effective Date of Insurance</td>
-            <td>{{coverStart}}</td>
+            <td id="coverStart"></td>
         </tr>
 
         <tr>
             <td>5</td>
             <td>Date of Expiry</td>
-            <td>{{coverEnd}}</td>
+            <td id="endCell"></td>
         </tr>
 
         <tr>
@@ -347,55 +343,28 @@ button{
 </div>
 
 <script>
-
 const policy = JSON.parse(sessionStorage.getItem("certificateData"));
 
 if (policy) {
 
-    function setText(selector, value) {
-        const el = document.querySelector(selector);
-        if (el) el.textContent = value || "";
-    }
+    document.querySelector(".policy-number p").textContent =
+        policy.policy_number || "";
 
-    // Policy Number
-    setText(".policy-number p", policy.policy_number);
+    document.getElementById("holderCell").textContent =
+        policy.full_name || "";
 
-    // Policyholder
-    const holderCell = document.querySelector("table tr:nth-child(2) td:nth-child(3)");
-    if (holderCell) {
-        holderCell.textContent =
-            policy.full_name || policy.policyholder || "";
-    }
+    document.getElementById("vehicleCell").innerHTML =
+        "<strong>" + (policy.make || "") + " " + (policy.model || "") + "</strong><br>" +
+        "Registration: <strong>" + (policy.registration || "") + "</strong><br>" +
+        "Year: " + (policy.year || "");
 
-    // Vehicle
-    const vehicleCell = document.querySelector("table tr:nth-child(1) td:nth-child(3)");
-    if (vehicleCell) {
-        vehicleCell.innerHTML =
-            "<strong>" +
-            (policy.make || "") +
-            " " +
-            (policy.model || "") +
-            "</strong><br>" +
-            "Registration: <strong>" +
-            (policy.registration || "") +
-            "</strong><br>" +
-            "Year: " +
-            (policy.year || "");
-    }
+    document.getElementById("startCell").textContent =
+        policy.start_time || "";
 
-    // Cover Dates
-    const startCell = document.querySelector("table tr:nth-child(4) td:nth-child(3)");
-    if (startCell)
-        startCell.textContent =
-            new Date(policy.start_time || policy.cover_start).toLocaleString();
-
-    const endCell = document.querySelector("table tr:nth-child(5) td:nth-child(3)");
-    if (endCell)
-        endCell.textContent =
-            new Date(policy.expiry_time || policy.cover_end).toLocaleString();
+    document.getElementById("endCell").textContent =
+        policy.expiry_time || "";
 
 }
-
 </script>
 </body>
 </html>
