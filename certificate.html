@@ -10,433 +10,345 @@
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-background:#f3f4f6;
-padding:30px 15px;
+    background:#e5e5e5;
+    padding:30px;
 }
 
 .certificate{
-
-max-width:900px;
-margin:auto;
-background:white;
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 15px 45px rgba(0,0,0,.12);
-
-}
-
-.header{
-
-background:linear-gradient(135deg,#ff7a00,#ff9d3f);
-color:white;
-padding:35px;
-
-}
-
-.certificate{
-    max-width:900px;
+    width:210mm;
+    min-height:297mm;
     margin:auto;
-    background:white;
-    border-radius:24px;
-    overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.15);
+    background:#fff;
+    border:2px solid #444;
+    box-shadow:0 10px 40px rgba(0,0,0,.15);
+    padding:45px;
 }
-
 
 .header{
-    background:linear-gradient(135deg,#ff7a00,#ffb15c);
-    color:white;
-    padding:40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    border-bottom:3px solid #f58220;
+    padding-bottom:20px;
+    margin-bottom:30px;
 }
-
 
 .logo{
-    font-size:38px;
+    font-size:40px;
     font-weight:900;
-    letter-spacing:-1px;
+    color:#f58220;
+    line-height:1;
 }
 
-
-.logo span{
-    color:white;
+.logo small{
+    display:block;
+    color:#555;
+    font-size:15px;
+    font-weight:600;
+    margin-top:6px;
 }
 
-
-.subtitle{
-    margin-top:8px;
-    font-size:16px;
-    opacity:.95;
+.policy-number{
+    text-align:right;
 }
 
-
-.title{
-    padding:35px;
-    border-bottom:1px solid #eee;
-}
-
-
-.title h1{
-    font-size:32px;
-    color:#222;
-    margin-bottom:12px;
-}
-
-
-.title p{
+.policy-number h3{
+    font-size:14px;
     color:#666;
-    line-height:1.6;
-}
-
-
-.status{
-    display:inline-block;
-    background:#16a34a;
-    color:white;
-    padding:9px 20px;
-    border-radius:999px;
-    font-weight:bold;
-    margin-top:20px;
-}
-
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:18px;
-    padding:35px;
-}
-
-
-.card{
-    background:#fafafa;
-    border-radius:18px;
-    padding:22px;
-    border-left:5px solid #ff7a00;
-}
-
-
-.card h3{
-    font-size:13px;
-    color:#888;
-    margin-bottom:10px;
     text-transform:uppercase;
-}
-
-
-.card p{
-    font-size:20px;
-    font-weight:700;
-    color:#222;
-}
-
-
-.cover{
-    padding:35px;
-}
-
-
-.cover h2{
-    margin-bottom:20px;
-    color:#222;
-}
-
-
-.cover-box{
-    background:#fff7ef;
-    border:1px solid #ffd2a3;
-    border-radius:18px;
-    padding:20px;
-    margin-bottom:15px;
-}
-
-
-.cover-box h3{
-    color:#ff7a00;
     margin-bottom:8px;
 }
 
-
-.cover-box p{
-    color:#555;
-    line-height:1.5;
+.policy-number p{
+    font-size:22px;
+    font-weight:700;
+    color:#111;
 }
 
-
-.footer{
-    padding:35px;
+.title{
     text-align:center;
-    border-top:1px solid #eee;
+    margin-bottom:30px;
 }
 
-
-button{
-    background:#ff7a00;
-    color:white;
-    border:none;
-    padding:16px 32px;
-    font-size:16px;
-    font-weight:bold;
-    border-radius:40px;
-    cursor:pointer;
+.title h1{
+    font-size:34px;
+    color:#222;
+    margin-bottom:15px;
 }
 
-
-button:hover{
-    opacity:.9;
-}
-
-
-.notice{
-    margin-top:20px;
-    font-size:13px;
-    color:#777;
+.title p{
+    font-size:15px;
+    color:#444;
     line-height:1.7;
 }
-padding:30px;
-text-align:center;
-border-top:1px solid #eee;
 
+.status{
+    display:inline-block;
+    margin-top:18px;
+    background:#1b8d3c;
+    color:#fff;
+    padding:8px 18px;
+    border-radius:30px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    margin-bottom:35px;
+}
+
+table td{
+    border:1px solid #666;
+    padding:14px;
+    vertical-align:top;
+    font-size:15px;
+}
+
+table td:first-child{
+    width:45px;
+    text-align:center;
+    font-weight:bold;
+    background:#f5f5f5;
+}
+
+table td:nth-child(2){
+    width:270px;
+    font-weight:bold;
+}
+
+.section-title{
+    font-size:20px;
+    margin-top:20px;
+    margin-bottom:15px;
+    color:#222;
+}
+
+.legal{
+    font-size:14px;
+    line-height:1.8;
+    color:#333;
+    text-align:justify;
+    margin-top:25px;
+}
+
+.signature{
+    margin-top:45px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+}
+
+.signature-box{
+    width:300px;
+}
+
+.signature-line{
+    border-top:1px solid #222;
+    margin-top:40px;
+    padding-top:8px;
+    font-weight:bold;
+}
+
+.company{
+    margin-top:50px;
+    border-top:1px solid #ccc;
+    padding-top:18px;
+    font-size:13px;
+    color:#555;
+    line-height:1.7;
+}
+
+.footer{
+    margin-top:25px;
+    font-size:12px;
+    color:#666;
+    text-align:center;
 }
 
 button{
+    display:none;
+}
 
-background:#ff7a00;
-color:white;
-border:none;
-padding:16px 28px;
-font-size:16px;
-font-weight:bold;
-border-radius:40px;
-cursor:pointer;
+@media print{
+
+body{
+    background:white;
+    padding:0;
+}
+
+.certificate{
+    width:100%;
+    min-height:auto;
+    border:none;
+    box-shadow:none;
+    padding:20px;
+}
+
+button{
+    display:none;
+}
 
 }
 
-button:hover{
-
-opacity:.92;
-
-}
-
-.notice{
-
-margin-top:20px;
-font-size:13px;
-color:#777;
-line-height:1.7;
-
-}
-.policy-badge{
-    display:inline-block;
-    margin-top:12px;
-    padding:8px 16px;
-    background:#fff7ed;
-    color:#ff7a00;
-    border-radius:20px;
-    font-weight:700;
-    font-size:14px;
-}
-    
 </style>
 
 </head>
 
 <body>
 
+<body>
+
 <div class="certificate">
 
-<div class="header">
+    <div class="header">
 
-<div class="logo">
-Temp<span>Cover</span>
+        <div class="logo">
+            TEMP COVER
+            <small>Certificate of Motor Insurance</small>
+        </div>
+
+        <div class="policy-number">
+            <h3>Policy Number</h3>
+            <p>{{policyNumber}}</p>
+        </div>
+
+    </div>
+
+    <div class="title">
+
+        <h1>Certificate of Motor Insurance</h1>
+
+        <p>
+            This certificate confirms that a valid policy of motor insurance
+            is in force for the policyholder and vehicle shown below,
+            subject to the terms, conditions and exclusions of the policy.
+        </p>
+
+        <div class="status">
+            ACTIVE POLICY
+        </div>
+
+    </div>
+
+    <table>
+
+        <tr>
+            <td>1</td>
+            <td>Description of Vehicle</td>
+            <td>
+                <strong>{{make}} {{model}}</strong><br>
+                Registration: <strong>{{registration}}</strong><br>
+                Year: {{year}}
+            </td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>Name of Policyholder</td>
+            <td>{{fullName}}</td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>Persons Entitled to Drive</td>
+            <td>The Policyholder named above.</td>
+        </tr>
+                <tr>
+            <td>4</td>
+            <td>Effective Date of Insurance</td>
+            <td>{{coverStart}}</td>
+        </tr>
+
+        <tr>
+            <td>5</td>
+            <td>Date of Expiry</td>
+            <td>{{coverEnd}}</td>
+        </tr>
+
+        <tr>
+            <td>6</td>
+            <td>Permitted Use</td>
+            <td>
+                Social, Domestic &amp; Pleasure<br>
+                Business Use (where shown on the policy schedule)
+            </td>
+        </tr>
+
+    </table>
+
+    <div class="section-title">
+        Certificate Declaration
+    </div>
+
+    <div class="legal">
+        We hereby certify that the policy to which this certificate relates
+        satisfies the requirements of the relevant Road Traffic legislation
+        applicable within the United Kingdom during the period of insurance
+        shown above.
+
+        <br><br>
+
+        This certificate should be kept safely and produced when required by
+        the appropriate authorities. Cover is subject to the terms,
+        conditions, exclusions and limitations contained within the policy
+        schedule and wording.
+    </div>
+
+    <div class="signature">
+
+        <div class="signature-box">
+            <div class="signature-line">
+                Authorised Signature
+            </div>
+        </div>
+
+        <div style="text-align:right;">
+            <strong>Issued by</strong><br>
+            Temp Cover
+        </div>
+
+    </div>
+        <div class="company">
+
+        <strong>Temp Cover</strong><br><br>
+
+        Temp Cover certifies that the policyholder named in this
+        certificate is insured in accordance with the policy schedule
+        during the period shown above.
+
+        <br><br>
+
+        This certificate should be read together with the policy wording.
+        It does not amend or extend the cover provided by the insurance
+        contract.
+
+        <br><br>
+
+        Registered in England and Wales.<br>
+        Authorised and regulated by the Financial Conduct Authority.
+
+    </div>
+
+    <div class="footer">
+
+        Certificate of Motor Insurance<br>
+        © Temp Cover. All Rights Reserved.
+
+    </div>
+
 </div>
 
-<div class="subtitle">
-Temporary Motor Insurance
-</div>
-
-</div>
-
-<div class="title">
-
-<h1>
-Certificate of Motor Insurance
-</h1>
-
-<p>
-This certificate confirms that a valid policy of temporary motor insurance is in force for the policyholder and vehicle shown below.
-</p>
-
-<div class="status">
-✓ ACTIVE POLICY
-</div>
-
-<div class="policy-badge">
-Temporary Comprehensive Cover
-</div>
-</div>
-
-<div class="grid">
-
-<div class="card">
-<h3>Policy Number</h3>
-<p id="policyNumber">TC-231635</p>
-</div>
-
-<div class="card">
-<h3>Policyholder</h3>
-<p id="insuredName">Adam Alam</p>
-</div>
-
-<div class="card">
-<h3>Vehicle</h3>
-<p id="vehicle">Audi RS7</p>
-</div>
-
-<div class="card">
-<h3>Registration</h3>
-<p id="registration">RS7BOSS</p>
-</div>
-
-<div class="card">
-<h3>Cover Starts</h3>
-<p id="startDate">29 July 2026</p>
-</div>
-
-<div class="card">
-<h3>Cover Expires</h3>
-<p id="endDate">30 July 2026</p>
-</div>
-
-</div>
-
-<div class="cover">
-
-<h2>Coverage Included</h2>
-
-<div class="cover-box">
-<h3>Comprehensive Motor Insurance</h3>
-<p>Full cover for accidental damage, fire and theft during the insured period.</p>
-</div>
-
-<div class="cover-box">
-<h3>Third Party Liability</h3>
-<p>Protection against legal liability for injury or damage caused to others.</p>
-</div>
-
-<div class="cover-box">
-<h3>Personal Accident Cover</h3>
-<p>Cover for eligible personal injury benefits as outlined in the policy wording.</p>
-</div>
-
-</div>
-
-<div class="footer">
-
-<button onclick="window.print()">
-Download / Print Certificate
-</button>
-
-<p class="notice">
-This certificate has been generated electronically through the Temp Cover customer portal.
-</p>
-
-</div>
-
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-
-const SUPABASE_URL = "https://lvjdaizpaqjnchjvrsni.supabase.co";
-
-const SUPABASE_ANON_KEY = "sb_publishable_fnag8tkEEClWTLVR7fL1sQ_3_rbAzEc";
-
-const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
-
-document.addEventListener("DOMContentLoaded", loadCertificate);
-
-async function loadCertificate(){
-
-    const {
-        data:{ user }
-    } = await supabaseClient.auth.getUser();
-
-
-    if(!user){
-
-        window.location.href="login.html";
-        return;
-
-    }
-
-
-   
-    document.getElementById("vehicle").textContent =
-        data.make + " " + data.model;
-
-
-    document.getElementById("registration").textContent =
-        data.registration || "";
-
-
-    document.getElementById("startDate").textContent =
-        new Date(data.start_time).toLocaleString();
-
-
-    document.getElementById("endDate").textContent =
-        new Date(data.expiry_time).toLocaleString();
-
-
-    document.getElementById("coverType").textContent =
-        data.cover_type || "";
-
-}
-
-const { data, error } = await supabaseClient
-    .from("policies")
-    .select("*")
-    .eq("user_id", user.id)
-    .eq("status", "ACTIVE")
-    .single();
-
-if (error || !data) {
-    alert("Unable to load your certificate.");
-    return;
-}
-
-document.getElementById("policyNumber").textContent =
-    data.policy_number || "Not Available";
-
-document.getElementById("vehicle").textContent =
-    (data.make || "") + " " + (data.model || "");
-
-document.getElementById("registration").textContent =
-    data.registration || "";
-
-document.getElementById("startDate").textContent =
-    data.start_time || "";
-
-document.getElementById("endDate").textContent =
-    data.expiry_time || "";
-  
-document.getElementById("coverType").textContent =
-    data.cover_type || "Fully Comprehensive";
-  
-document.getElementById("insuredName").textContent =
-    data.full_name || "Policyholder";
-  
-</script>
-
-
+</body>
+</html>
 </body>
 </html>
