@@ -280,7 +280,27 @@ document
 
 document
 .getElementById("downloadCertificate")
-.addEventListener("click", function () {
+.addEventListener("click", async function () {
+
+    const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if (!user) return;
+
+    const { data, error } = await supabaseClient
+        .from("policies")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("status", "ACTIVE")
+        .single();
+
+    if (error || !data) {
+        alert("No active policy found.");
+        return;
+    }
+
+    sessionStorage.setItem("certificateData", JSON.stringify(data));
 
     window.location.href = "certificate.html";
 
