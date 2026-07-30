@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Certificate of Motor Insurance</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:#f3f4f6;
+padding:30px 15px;
+}
+
+.certificate{
+
+max-width:900px;
+margin:auto;
+background:white;
+border-radius:24px;
+overflow:hidden;
+box-shadow:0 15px 45px rgba(0,0,0,.12);
+
+}
+
+.header{
+
+background:linear-gradient(135deg,#ff7a00,#ff9d3f);
+color:white;
+padding:35px;
+
+}
+
+.logo{
+
+font-size:34px;
+font-weight:800;
+
+}
+
+.logo span{
+
+color:white;
+
+}
+
+.subtitle{
+
+margin-top:8px;
+font-size:15px;
+opacity:.95;
+
+}
+
+.title{
+
+padding:30px;
+border-bottom:1px solid #eee;
+
+}
+
+.title h1{
+
+font-size:30px;
+color:#222;
+margin-bottom:10px;
+
+}
+
+.title p{
+
+color:#666;
+line-height:1.6;
+
+}
+
+.status{
+
+display:inline-block;
+background:#16a34a;
+color:white;
+padding:8px 18px;
+border-radius:999px;
+font-weight:bold;
+margin-top:18px;
+
+}
+
+.grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+padding:30px;
+
+}
+
+.card{
+
+background:#fafafa;
+border-left:5px solid #ff7a00;
+border-radius:16px;
+padding:20px;
+
+}
+
+.card h3{
+
+font-size:14px;
+color:#888;
+margin-bottom:8px;
+text-transform:uppercase;
+
+}
+
+.card p{
+
+font-size:20px;
+font-weight:bold;
+color:#222;
+
+}
+
+.cover{
+
+padding:30px;
+
+}
+
+.cover h2{
+
+margin-bottom:20px;
+color:#222;
+
+}
+
+.cover-box{
+
+background:#fff8f2;
+border:1px solid #ffd6b0;
+border-radius:16px;
+padding:18px;
+margin-bottom:15px;
+
+}
+
+.cover-box h3{
+
+color:#ff7a00;
+margin-bottom:8px;
+
+}
+
+.cover-box p{
+
+color:#555;
+line-height:1.5;
+
+}
+
+.footer{
+
+padding:30px;
+text-align:center;
+border-top:1px solid #eee;
+
+}
+
+button{
+
+background:#ff7a00;
+color:white;
+border:none;
+padding:16px 28px;
+font-size:16px;
+font-weight:bold;
+border-radius:40px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+opacity:.92;
+
+}
+
+.notice{
+
+margin-top:20px;
+font-size:13px;
+color:#777;
+line-height:1.7;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="certificate">
+
+<div class="header">
+
+<div class="logo">
+Temp<span>Cover</span>
+</div>
+
+<div class="subtitle">
+Temporary Motor Insurance
+</div>
+
+</div>
+
+<div class="title">
+
+<h1>
+Certificate of Motor Insurance
+</h1>
+
+<p>
+This certificate confirms that a valid policy of temporary motor insurance is in force for the policyholder and vehicle shown below.
+</p>
+
+<div class="status">
+ACTIVE POLICY
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Policy Number</h3>
+<p id="policyNumber">TC-231635</p>
+</div>
+
+<div class="card">
+<h3>Policyholder</h3>
+<p id="insuredName">Adam Alam</p>
+</div>
+
+<div class="card">
+<h3>Vehicle</h3>
+<p id="vehicle">Audi RS7</p>
+</div>
+
+<div class="card">
+<h3>Registration</h3>
+<p id="registration">RS7BOSS</p>
+</div>
+
+<div class="card">
+<h3>Cover Starts</h3>
+<p id="startDate">29 July 2026</p>
+</div>
+
+<div class="card">
+<h3>Cover Expires</h3>
+<p id="endDate">30 July 2026</p>
+</div>
+
+</div>
+
+<div class="cover">
+
+<h2>Coverage Included</h2>
+
+<div class="cover-box">
+<h3>Comprehensive Motor Insurance</h3>
+<p>Full cover for accidental damage, fire and theft during the insured period.</p>
+</div>
+
+<div class="cover-box">
+<h3>Third Party Liability</h3>
+<p>Protection against legal liability for injury or damage caused to others.</p>
+</div>
+
+<div class="cover-box">
+<h3>Personal Accident Cover</h3>
+<p>Cover for eligible personal injury benefits as outlined in the policy wording.</p>
+</div>
+
+</div>
+
+<div class="footer">
+
+<button onclick="window.print()">
+Download / Print Certificate
+</button>
+
+<p class="notice">
+This certificate has been generated electronically through the Temp Cover customer portal.
+</p>
+
+</div>
+
+</div>
+<script>
+const policy = JSON.parse(localStorage.getItem("policy") || "{}");
+
+if (policy.policyNumber) {
+  document.getElementById("policyNumber").textContent = policy.policyNumber;
+}
+
+if (policy.name) {
+  document.getElementById("insuredName").textContent = policy.name;
+}
+
+if (policy.vehicle) {
+  document.getElementById("vehicle").textContent = policy.vehicle;
+}
+
+if (policy.registration) {
+  document.getElementById("registration").textContent = policy.registration;
+}
+
+if (policy.startDate) {
+  document.getElementById("startDate").textContent = policy.startDate;
+}
+
+if (policy.endDate) {
+  document.getElementById("endDate").textContent = policy.endDate;
+}
+</script>
+
+</body>
+</html>
+</body>
+</html>
