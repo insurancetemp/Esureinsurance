@@ -300,9 +300,11 @@ document
         return;
     }
 
-    sessionStorage.setItem("certificateData", JSON.stringify(data));
+    console.log("Certificate data:", data);
 
-    window.location.href = "certificate.html";
+sessionStorage.setItem("certificateData", JSON.stringify(data));
+
+window.location.href = "certificate.html";
 
 });
 
