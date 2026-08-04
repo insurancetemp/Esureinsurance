@@ -361,10 +361,10 @@ if(!policy){
     document.getElementById("policyNumber").textContent =
         policy.policy_number || policy.policyNumber || "";
 
-    document.getElementById("policyholderCell").textContent =
-        policy.full_name || " "
-        policy.fullName ||
-        ((policy.first_name || "") + " " + (policy.last_name || "")).trim();
+document.getElementById("policyholderCell").textContent =
+    policy.full_name ||
+    policy.fullName ||
+    ((policy.first_name || "") + " " + (policy.last_name || "")).trim();
 
     document.getElementById("vehicleCell").innerHTML =
         "<strong>" + (policy.make || "") + " " + (policy.model || "") + "</strong><br>" +
