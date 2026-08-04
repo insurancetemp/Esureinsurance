@@ -103,13 +103,15 @@ async function loadPolicy(userId) {
     document.getElementById("vehicleName").textContent =
         data.make + " " + data.model;
 
-    document.getElementById("vehicleDetails").textContent =
-    data.year + (data.colour ? " " + data.colour : "");
-
-    document.getElementById("coverType").textContent =
+ document.getElementById("coverType").textContent =
         data.cover_type;
 
-    startCountdown(data.expiry_time);
+
+// Save policy for certificate
+window.currentPolicy = data;
+
+
+startCountdown(data.expiry_time);
 
 }
 
