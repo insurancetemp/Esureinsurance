@@ -398,19 +398,42 @@ async function loadActivePolicyCount(userId) {
 // OPEN CERTIFICATE
 // ---------------------------------
 
-function openCertificate(){
+async function openCertificate(){
 
-    if(!window.currentPolicy){
+    const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
 
-        alert("No policy data found.");
+
+    if(!user){
+        alert("Please login again.");
+        return;
+    }
+
+
+    const { data, error } = await supabaseClient
+        .from("policies")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("status", "ACTIVE")
+        .single();
+
+
+    if(error || !data){
+
+        alert("No active policy found.");
+        console.log(error);
         return;
 
     }
 
 
+    console.log("Certificate data:", data);
+
+
     sessionStorage.setItem(
         "certificateData",
-        JSON.stringify(window.currentPolicy)
+        JSON.stringify(data)
     );
 
 
