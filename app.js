@@ -394,3 +394,26 @@ async function loadActivePolicyCount(userId) {
 
 }
 
+// ---------------------------------
+// OPEN CERTIFICATE
+// ---------------------------------
+
+function openCertificate(){
+
+    if(!window.currentPolicy){
+
+        alert("No policy data found.");
+        return;
+
+    }
+
+
+    sessionStorage.setItem(
+        "certificateData",
+        JSON.stringify(window.currentPolicy)
+    );
+
+
+    window.location.href = "certificate.html";
+
+}
