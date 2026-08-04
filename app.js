@@ -428,7 +428,8 @@ async function openCertificate(){
     }
 
 
-    console.log("Certificate data:", data);
+    console.log("Certificate data:", JSON.stringify(data));
+alert(JSON.stringify(data));
 
 
     sessionStorage.setItem(
