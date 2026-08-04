@@ -361,7 +361,7 @@ if(!policy){
         policy.policy_number || policy.policyNumber || "";
 
     document.getElementById("policyholderCell").textContent =
-        policy.full_name ||
+        policy.full_name || " "
         policy.fullName ||
         ((policy.first_name || "") + " " + (policy.last_name || "")).trim();
 
@@ -387,19 +387,11 @@ if(!policy){
 
 
 document.getElementById("startDateCell").textContent =
-    formatDate(
-        policy.cover_start ||
-        policy.coverStart ||
-        policy.start_time
-    );
+    new Date(policy.start_time).toLocaleString();
 
 
 document.getElementById("expiryDateCell").textContent =
-    formatDate(
-        policy.cover_end ||
-        policy.coverEnd ||
-        policy.expiry_time
-    );
+    new Date(policy.expiry_time).toLocaleString();
 
 </script>
 
