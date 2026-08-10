@@ -441,32 +441,118 @@ button{
 
 
 /* =========================
-   POLICY DETAILS
+   POLICY DETAILS SCREEN
 ========================= */
 
-.details-section,
+.details-section{
+    display:none;
+    padding-bottom:30px;
+}
+
+.details-section.active{
+    display:block;
+}
+
+.details-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:10px;
+}
+
+.back-button{
+    width:44px;
+    height:44px;
+    border:none;
+    border-radius:50%;
+    background:#ffffff;
+    color:#172033;
+    font-size:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.07);
+}
+
+.details-heading{
+    font-size:28px;
+    font-weight:800;
+    color:#172033;
+}
+
+.details-subtitle{
+    font-size:14px;
+    color:#7a8494;
+    margin:0 0 24px 58px;
+}
+
+
+/* COVERAGE INTRO BOX */
+
+.coverage-intro{
+    background:linear-gradient(135deg,#d95f00,#ff7a00,#ff9d3f);
+    color:white;
+    border-radius:28px;
+    padding:25px 22px;
+    margin-bottom:16px;
+    box-shadow:0 10px 25px rgba(255,122,0,.18);
+}
+
+.coverage-intro h3{
+    font-size:22px;
+    font-weight:800;
+    margin-bottom:7px;
+}
+
+.coverage-intro p{
+    font-size:14px;
+    color:rgba(255,255,255,.9);
+}
+
+
+/* INDIVIDUAL COVER BOXES */
+
+.coverage-box{
+    background:#ffffff;
+    border:1px solid #e7e9ed;
+    border-radius:24px;
+    padding:21px 20px;
+    margin-bottom:13px;
+    box-shadow:0 4px 13px rgba(0,0,0,.05);
+}
+
+.coverage-box h3{
+    font-size:17px;
+    font-weight:800;
+    color:#172033;
+    margin-bottom:7px;
+}
+
+.coverage-box p{
+    font-size:13px;
+    color:#7a8494;
+    line-height:1.45;
+}
+
+
+/* PROFILE / FAQ */
+
 .profile-section,
 .faq-section{
     display:none;
 }
 
-
-.details-section.active,
 .profile-section.active,
 .faq-section.active{
     display:block;
 }
 
-
-.details-section h2,
 .profile-section h2,
 .faq-section h2{
     font-size:28px;
     margin-bottom:20px;
 }
 
-
-.coverage-box,
 .profile-box,
 .faq-box{
     background:white;
@@ -476,20 +562,14 @@ button{
     margin-bottom:14px;
 }
 
-
-.coverage-box h3,
-.coverage-box h4,
 .faq-box h3{
     margin-bottom:8px;
 }
 
-
-.coverage-box p,
 .faq-box p{
     color:#6f7888;
     line-height:1.5;
 }
-
 
 .profile-box p{
     padding:14px 0;
@@ -499,17 +579,14 @@ button{
     gap:6px;
 }
 
-
 .profile-box p:last-child{
     border-bottom:none;
 }
-
 
 .profile-box strong{
     color:#7a8494;
     font-size:12px;
 }
-
 
 .profile-box span{
     font-weight:600;
@@ -847,7 +924,94 @@ button{
     class="details-section"
     id="policyDetails">
 
-    <h2>Policy Details</h2>
+    <div class="details-header">
+
+        <button
+            class="back-button"
+            id="backToDashboard"
+            type="button">
+
+            ←
+
+        </button>
+
+        <h2 class="details-heading">
+            Coverage Details
+        </h2>
+
+    </div>
+
+
+    <p class="details-subtitle">
+        What this policy protects
+    </p>
+
+
+    <div class="coverage-intro">
+
+        <h3>
+            Your Cover
+        </h3>
+
+        <p>
+            Your temporary motor insurance policy provides protection
+            for the vehicle and circumstances covered by your policy.
+        </p>
+
+    </div>
+
+
+    <div class="coverage-box">
+
+        <h3>
+            Comprehensive Motor Insurance
+        </h3>
+
+        <p>
+            Full coverage for your vehicle
+        </p>
+
+    </div>
+
+
+    <div class="coverage-box">
+
+        <h3>
+            Third Party Liability
+        </h3>
+
+        <p>
+            Protection against claims from others
+        </p>
+
+    </div>
+
+
+    <div class="coverage-box">
+
+        <h3>
+            Personal Accident Cover
+        </h3>
+
+        <p>
+            Medical expenses coverage
+        </p>
+
+    </div>
+
+
+    <div class="coverage-box">
+
+        <h3>
+            Fire & Theft Protection
+        </h3>
+
+        <p>
+            Coverage for fire damage and theft
+        </p>
+
+    </div>
+
 
     <button
         id="downloadCertificate"
@@ -857,35 +1021,6 @@ button{
         Download Certificate
 
     </button>
-
-
-    <div class="coverage-box">
-
-        <h3>Coverage Details</h3>
-
-        <h4>Comprehensive Motor Insurance</h4>
-
-        <p>Full coverage for your vehicle</p>
-
-    </div>
-
-
-    <div class="coverage-box">
-
-        <h4>Third Party Liability</h4>
-
-        <p>Protection against claims from others</p>
-
-    </div>
-
-
-    <div class="coverage-box">
-
-        <h4>Personal Accident Cover</h4>
-
-        <p>Medical expenses coverage</p>
-
-    </div>
 
 </section>
 
