@@ -31,6 +31,9 @@ body{
     padding:28px 34px 22px;
     box-shadow:0 5px 25px rgba(0,0,0,.18);
     border:1px solid #ddd;
+
+    position:relative;
+    overflow:hidden;
 }
 
 
@@ -395,24 +398,36 @@ body{
     }
 
 }
- body::before {
-    content: "TEMP COVER   TEMP COVER   TEMP COVER   TEMP COVER   TEMP COVER   TEMP COVER   TEMP COVER";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-25deg);
-    width: 100%;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.14;
-    color: #ff7a00;
-    font-size: 38px;
-    font-weight: bold;
-    line-height: 150px;
-    word-spacing: 50px;
-}
+.certificate::before{
+    content:"TEMP COVER";
+
+    position:absolute;
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%, -50%) rotate(-25deg);
+
+    width:90%;
+    text-align:center;
+
+    z-index:0;
+    pointer-events:none;
+
+    opacity:0.14;
+    color:#ff7a00;
+
+    font-size:36px;
+    font-weight:bold;
+    line-height:1;
+
+    white-space:nowrap;
 }
 
+.certificate > *{
+    position:relative;
+    z-index:1;
+}
+    
 </style>
 
 </head>
