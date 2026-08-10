@@ -46,11 +46,44 @@ body{
 }
 
 .logo{
-    font-size:42px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-mark{
+    width:42px;
+    height:42px;
+    background:#ff7a00;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:22px;
     font-weight:900;
-    letter-spacing:2px;
-    color:#e7a91d;
+    box-shadow:0 3px 8px rgba(255,122,0,.22);
+}
+
+.logo-text{
+    display:flex;
+    flex-direction:column;
     line-height:1;
+}
+
+.logo-main{
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:-1px;
+    color:#ff7a00;
+}
+
+.logo-sub{
+    margin-top:5px;
+    font-size:8px;
+    font-weight:700;
+    letter-spacing:2px;
+    color:#555;
 }
 
 .top-policy-number{
@@ -295,9 +328,20 @@ body{
         padding:18px 12px;
     }
 
-    .logo{
-        font-size:32px;
-    }
+  .logo-main{
+    font-size:22px;
+}
+
+.logo-mark{
+    width:34px;
+    height:34px;
+    font-size:17px;
+}
+
+.logo-sub{
+    font-size:6px;
+    letter-spacing:1.2px;
+}
 
     .top-policy-value{
         font-size:14px;
@@ -367,9 +411,25 @@ body{
 
     <div class="header">
 
-        <div class="logo">
+    <div class="logo">
+
+    <div class="logo-mark">
+        TC
+    </div>
+
+    <div class="logo-text">
+
+        <div class="logo-main">
             TEMP COVER
         </div>
+
+        <div class="logo-sub">
+            TEMPORARY MOTOR INSURANCE
+        </div>
+
+    </div>
+
+</div>
 
 
         <div class="top-policy-number">
@@ -557,22 +617,77 @@ body{
     </div>
 
 
-    <!-- COMPANY INFORMATION -->
+   <!-- COMPANY INFORMATION -->
 
-    <div class="company-section">
+<div class="company-section">
 
-        <p>
-            <strong>Temp Cover</strong>
-        </p>
+    <p>
+        <strong>Temp Cover</strong>
+    </p>
 
-        <p>
-            This certificate should be read together with the policy wording
-            and policy schedule. It does not amend or extend the cover
-            provided by the insurance contract.
-            </div>
+    <p>
+        This certificate should be read together with the policy wording
+        and policy schedule. It does not amend or extend the cover
+        provided by the insurance contract.
+    </p>
 
 </div>
 
+
+<!-- SIGNATURE -->
+
+<div class="signature-area">
+
+    <div class="signature-left">
+
+        <div class="signature-line">
+            Authorised Signatory
+        </div>
+
+    </div>
+
+    <div class="signature-right">
+
+        <div class="signature-mark">
+            Temp Cover
+        </div>
+
+        <div>
+            For and on behalf of Temp Cover
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- THIRD PARTY NOTICE -->
+
+<div class="notice">
+
+    This certificate provides evidence of motor insurance for the period
+    shown above. Please keep this document in a safe place and present it
+    when requested by an authorised person.
+
+</div>
+
+
+<!-- WARNING -->
+
+<div class="warning">
+
+    Warning: This certificate is not valid outside the period of insurance shown above.
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+    Temp Cover | Certificate of Motor Insurance
+
+</div>
 
 <script>
 
