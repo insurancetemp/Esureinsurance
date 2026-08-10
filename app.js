@@ -46,35 +46,59 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function loadProfile(userId) {
 
-    const { data, error } = await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id", userId)
-        .single();
-
-    if (error) {
-
-        console.log(error);
-        return;
-
-    }
-
-    document.getElementById("profileEmail").textContent =
-        data.email || "";
-
+const {
+    data: user,
+    error: userError
+} = await supabaseClient.auth.getUser();
+if (userError || !user) {
+    console.log("User error:", userError);
+    return;
+}
+const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .maybeSingle();
+console.log("Profile data:", data);
+console.log("Profile error:", error);
+// Email can always come from the logged-in Supabase account
+document.getElementById("profileEmail").textContent =
+    user.email || "Not provided";
+// If no profile row exists, don't leave the page stuck on Loading...
+if (error) {
     document.getElementById("profileName").textContent =
-        data.full_name || "";
-
+        "Not available";
     document.getElementById("profileAddress").textContent =
-        data.address || "";
-
+        "Not available";
     document.getElementById("profilePhone").textContent =
-        data.phone || "";
-
+        "Not available";
     document.getElementById("profileLicence").textContent =
-        data.driving_license || "";
+        "Not available";
+    return;
+}
+if (!data) {
+    document.getElementById("profileName").textContent =
+        user.user_metadata?.full_name || "Not provided";
+    document.getElementById("profileAddress").textContent =
+        "Not provided";
+    document.getElementById("profilePhone").textContent =
+        "Not provided";
+    document.getElementById("profileLicence").textContent =
+        "Not provided";
+    return;
+}
+document.getElementById("profileName").textContent =
+    data.full_name || user.user_metadata?.full_name || "Not provided";
+document.getElementById("profileAddress").textContent =
+    data.address || "Not provided";
+document.getElementById("profilePhone").textContent =
+    data.phone || "Not provided";
+document.getElementById("profileLicence").textContent =
+    data.driving_license || data.driving_license || "Not provided";
 
 }
+
+
 
 
 // ---------------------------------
