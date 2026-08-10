@@ -872,6 +872,7 @@ try{
 
 const { data:{ user } } =
 await supabaseClient.auth.getUser();
+const userId = user ? user.id : null;    
 
 
 
@@ -884,7 +885,7 @@ await supabaseClient
 .insert([{
 
 
-user_id: user? user.id : null,
+user_id: userId,
 
 reference:quoteRef,
 
