@@ -207,18 +207,45 @@ document
 .getElementById("viewDetails")
 .addEventListener("click", function () {
 
+    // Hide the main dashboard sections
+    document.querySelector(".dashboard-header").style.display = "none";
+    document.querySelector(".policy-summary").style.display = "none";
+    document.querySelector(".trust-grid").style.display = "none";
+    document.querySelector(".vehicle-heading-row").style.display = "none";
+    document.querySelector(".policy-card").style.display = "none";
+
+    // Show policy details screen
     hideSections();
 
     detailsSection.style.display = "block";
 
     window.scrollTo({
-        top: detailsSection.offsetTop - 20,
+        top: 0,
         behavior: "smooth"
     });
 
 });
 
+document
+.getElementById("backToDashboard")
+.addEventListener("click", function () {
 
+    // Hide policy details
+    detailsSection.style.display = "none";
+
+    // Show dashboard again
+    document.querySelector(".dashboard-header").style.display = "flex";
+    document.querySelector(".policy-summary").style.display = "block";
+    document.querySelector(".trust-grid").style.display = "grid";
+    document.querySelector(".vehicle-heading-row").style.display = "flex";
+    document.querySelector(".policy-card").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
 
 // ---------------------------------
 // HOME BUTTON
