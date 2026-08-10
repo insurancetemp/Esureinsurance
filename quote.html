@@ -884,7 +884,7 @@ await supabaseClient
 .insert([{
 
 
-user_id: user.id,
+user_id: user? user.id : null,
 
 reference:quoteRef,
 
