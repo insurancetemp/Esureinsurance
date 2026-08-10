@@ -399,7 +399,7 @@ body{
 
 }
 .certificate::before{
-    content:"TEMP COVER     TEMP COVER     TEMP COVER     TEMP COVER     TEMP COVER     TEMP COVER";
+    content:"TEMP COVER   TEMP COVER    TEMP COVER   TEMP COVER     TEMP COVER    TEMP COVER";
 
     position:absolute;
     top:50%;
@@ -407,7 +407,8 @@ body{
 
     transform:translate(-50%, -50%) rotate(-25deg);
 
-    width:150%;
+    width:100%;
+    max-width:100%;
     text-align:center;
 
     z-index:0;
@@ -421,6 +422,7 @@ body{
     line-height:150px;
 
     white-space:normal;
+    overflow:hidden;
 }
 
 .certificate > *{
