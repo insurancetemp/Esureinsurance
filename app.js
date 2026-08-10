@@ -100,11 +100,14 @@ async function loadPolicy(userId) {
     document.getElementById("vehicleRegistration").textContent =
         data.registration;
 
-    document.getElementById("vehicleName").textContent =
-        data.make + " " + data.model;
+ document.getElementById("vehicleName").textContent =
+    data.make + " " + data.model;
 
- document.getElementById("coverType").textContent =
-        data.cover_type;
+document.getElementById("vehicleDetails").textContent =
+    data.colour + " " + data.year;
+
+document.getElementById("coverType").textContent =
+    data.cover_type;
 
 
 // Save policy for certificate
