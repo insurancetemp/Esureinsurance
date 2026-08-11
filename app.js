@@ -450,19 +450,70 @@ async function refreshPolicyStatus() {
 
     if (!user) return;
 
-    const { data } = await supabaseClient
+
+    const { data, error } = await supabaseClient
         .from("policies")
-        .select("status")
+        .select("status, expiry_time")
         .eq("user_id", user.id)
-        .single();
+        .order("expiry_time", { ascending: false })
+        .limit(1)
+        .maybeSingle();
 
-    if (!data) return;
 
-    const badge = document.querySelector(".active-status");
+    if (error || !data) {
+
+        console.log("Policy status error:", error);
+
+        return;
+
+    }
+
+
+    const now = new Date();
+    const expiry = new Date(data.expiry_time);
+
+    const badge =
+        document.querySelector(".active-status");
+
+
+    // POLICY HAS EXPIRED
+
+    if (expiry <= now) {
+
+        if (badge) {
+            badge.textContent = "EXPIRED";
+        }
+
+
+        document.getElementById(
+            "activePolicyCount"
+        ).textContent = "0";
+
+
+        const vehicleCount =
+            document.querySelector(".vehicle-count");
+
+
+        if (vehicleCount) {
+            vehicleCount.textContent = "0 active";
+        }
+
+
+        return;
+
+    }
+
+
+    // POLICY IS STILL ACTIVE
 
     if (badge) {
-        badge.textContent = data.status.toUpperCase();
+        badge.textContent = "ACTIVE";
     }
+
+
+    // Update active policy count
+
+    loadActivePolicyCount(user.id);
 
 }
 
@@ -483,25 +534,59 @@ setInterval(function () {
 // LOAD ACTIVE POLICY COUNT
 // ---------------------------------
 
-async function loadActivePolicyCount(userId) {
+async function refreshPolicyStatus() {
+
+    const {
+        data: { user }
+    } = await supabaseClient.auth.getUser();
+
+    if (!user) return;
+
 
     const { data, error } = await supabaseClient
         .from("policies")
-        .select("id", { count: "exact" })
-        .eq("user_id", userId)
-        .eq("status", "ACTIVE");
+        .select("status, expiry_time")
+        .eq("user_id", user.id)
+        .order("expiry_time", { ascending: false })
+        .limit(1)
+        .maybeSingle();
 
 
-    if (error) {
-
-        console.log(error);
+    if (error || !data) {
+        console.log("Policy status error:", error);
         return;
-
     }
 
 
-    document.getElementById("activePolicyCount").textContent =
-        data.length;
+    const now = new Date();
+    const expiry = new Date(data.expiry_time);
+
+
+    const badge = document.querySelector(".active-status");
+
+
+    if (expiry <= now) {
+
+        if (badge) {
+            badge.textContent = "EXPIRED";
+        }
+
+        document.getElementById("activePolicyCount").textContent = "0";
+
+        const vehicleCount =
+            document.querySelector(".vehicle-count");
+
+        if (vehicleCount) {
+            vehicleCount.textContent = "0 active";
+        }
+
+        return;
+    }
+
+
+    if (badge) {
+        badge.textContent = "ACTIVE";
+    }
 
 }
 
