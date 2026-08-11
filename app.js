@@ -39,10 +39,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
-
 async function loadProfile(userId) {
 
-    // Get the currently logged-in Supabase user
     const {
         data: { user },
         error: userError
@@ -53,10 +51,8 @@ async function loadProfile(userId) {
         return;
     }
 
+    console.log("AUTH USER ID:", user.id);
 
-    // ---------------------------------
-    // LOAD PROFILE FROM PROFILES TABLE
-    // ---------------------------------
 
     const {
         data: profile,
@@ -64,114 +60,103 @@ async function loadProfile(userId) {
     } = await supabaseClient
         .from("profiles")
         .select("*")
-        .eq("id", userId)
-        .single();
+        .eq("id", user.id)
+        .maybeSingle();
 
 
-    console.log("Customer profile:", profile);
-    console.log("Profile error:", profileError);
+    console.log("CUSTOMER PROFILE:", profile);
+    console.log("PROFILE ERROR:", profileError);
 
 
-    // ---------------------------------
+    if (profileError) {
+
+        console.error(
+            "Could not load profile:",
+            profileError
+        );
+
+        document.getElementById("profileEmail").textContent =
+            user.email || "Not provided";
+
+        document.getElementById("profileName").textContent =
+            "Not provided";
+
+        document.getElementById("profileAddress").textContent =
+            "Not provided";
+
+        document.getElementById("profileLicence").textContent =
+            "Not provided";
+
+        document.getElementById("profilePhone").textContent =
+            "Not provided";
+
+        return;
+    }
+
+
+    if (!profile) {
+
+        console.log(
+            "No profile found for:",
+            user.id
+        );
+
+        document.getElementById("profileEmail").textContent =
+            user.email || "Not provided";
+
+        document.getElementById("profileName").textContent =
+            user.user_metadata?.full_name || "Not provided";
+
+        document.getElementById("profileAddress").textContent =
+            "Not provided";
+
+        document.getElementById("profileLicence").textContent =
+            "Not provided";
+
+        document.getElementById("profilePhone").textContent =
+            "Not provided";
+
+        return;
+    }
+
+
     // EMAIL
-    // ---------------------------------
 
     document.getElementById("profileEmail").textContent =
-        profile?.email ||
+        profile.email ||
         user.email ||
         "Not provided";
 
 
-    // ---------------------------------
     // NAME
-    // ---------------------------------
 
     document.getElementById("profileName").textContent =
-        profile?.full_name ||
+        profile.full_name ||
         user.user_metadata?.full_name ||
         "Not provided";
 
 
-    // ---------------------------------
     // ADDRESS
-    // ---------------------------------
 
     document.getElementById("profileAddress").textContent =
-        profile?.address ||
+        profile.address ||
         "Not provided";
 
 
-    // ---------------------------------
     // DRIVING LICENCE
-    // ---------------------------------
 
     document.getElementById("profileLicence").textContent =
-        profile?.driving_licence ||
+        profile.driving_licence ||
         "Not provided";
 
 
-    // ---------------------------------
     // PHONE
-    // ---------------------------------
 
     document.getElementById("profilePhone").textContent =
-        profile?.phone ||
+        profile.phone ||
         "Not provided";
 
 }
-
-
-    // -----------------------------
-    // NAME
-    // -----------------------------
-
-    let customerName = data.full_name;
-
-    // If full_name isn't stored, use first + last name
-    if (!customerName && (data.first_name || data.last_name)) {
-
-        customerName = [
-            data.first_name,
-            data.last_name
-        ]
-        .filter(Boolean)
-        .join(" ");
-
-    }
-
-    document.getElementById("profileName").textContent =
-        customerName ||
-        user.user_metadata?.full_name ||
-        "Not provided";
-
-
-    // -----------------------------
-    // ADDRESS
-    // -----------------------------
-
-    document.getElementById("profileAddress").textContent =
-        data.address || "Not provided";
-
-
-    // -----------------------------
-    // PHONE
-    // -----------------------------
-
-    document.getElementById("profilePhone").textContent =
-        data.phone || "Not provided";
-
-
-    // -----------------------------
-    // DRIVING LICENCE
-    // -----------------------------
-
-    document.getElementById("profileLicence").textContent =
-        data.driving_licence || "Not provided";
-
-}
-
-
-
 
 // ---------------------------------
 // LOAD ACTIVE POLICY
