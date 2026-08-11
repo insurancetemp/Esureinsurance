@@ -40,61 +40,125 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
-// ---------------------------------
-// LOAD CUSTOMER PROFILE
-// ---------------------------------
-
 async function loadProfile(userId) {
 
-const {
-    data: user,
-    error: userError
-} = await supabaseClient.auth.getUser();
-if (userError || !user) {
-    console.log("User error:", userError);
-    return;
-}
-const { data, error } = await supabaseClient
-    .from("profiles")
-    .select("*")
-    .eq("id", userId)
-    .maybeSingle();
-console.log("Profile data:", data);
-console.log("Profile error:", error);
-// Email can always come from the logged-in Supabase account
-document.getElementById("profileEmail").textContent =
-    user.email || "Not provided";
-// If no profile row exists, don't leave the page stuck on Loading...
-if (error) {
+    // Get the currently logged-in Supabase user
+    const {
+        data: { user },
+        error: userError
+    } = await supabaseClient.auth.getUser();
+
+    if (userError || !user) {
+        console.log("User error:", userError);
+        return;
+    }
+
+    // Email comes directly from Supabase Auth
+    document.getElementById("profileEmail").textContent =
+        user.email || "Not provided";
+
+
+    // Load the customer's quote information
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("quotes")
+        .select("*")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+
+    console.log("Customer quote/profile data:", data);
+    console.log("Customer quote/profile error:", error);
+
+
+    if (error) {
+
+        console.log("Could not load customer details:", error);
+
+        document.getElementById("profileName").textContent =
+            "Not provided";
+
+        document.getElementById("profileAddress").textContent =
+            "Not provided";
+
+        document.getElementById("profilePhone").textContent =
+            "Not provided";
+
+        document.getElementById("profileLicence").textContent =
+            "Not provided";
+
+        return;
+    }
+
+
+    if (!data) {
+
+        document.getElementById("profileName").textContent =
+            user.user_metadata?.full_name || "Not provided";
+
+        document.getElementById("profileAddress").textContent =
+            "Not provided";
+
+        document.getElementById("profilePhone").textContent =
+            "Not provided";
+
+        document.getElementById("profileLicence").textContent =
+            "Not provided";
+
+        return;
+    }
+
+
+    // -----------------------------
+    // NAME
+    // -----------------------------
+
+    let customerName = data.full_name;
+
+    // If full_name isn't stored, use first + last name
+    if (!customerName && (data.first_name || data.last_name)) {
+
+        customerName = [
+            data.first_name,
+            data.last_name
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+    }
+
     document.getElementById("profileName").textContent =
-        "Not available";
+        customerName ||
+        user.user_metadata?.full_name ||
+        "Not provided";
+
+
+    // -----------------------------
+    // ADDRESS
+    // -----------------------------
+
     document.getElementById("profileAddress").textContent =
-        "Not available";
+        data.address || "Not provided";
+
+
+    // -----------------------------
+    // PHONE
+    // -----------------------------
+
     document.getElementById("profilePhone").textContent =
-        "Not available";
+        data.phone || "Not provided";
+
+
+    // -----------------------------
+    // DRIVING LICENCE
+    // -----------------------------
+
     document.getElementById("profileLicence").textContent =
-        "Not available";
-    return;
-}
-if (!data) {
-    document.getElementById("profileName").textContent =
-        user.user_metadata?.full_name || "Not provided";
-    document.getElementById("profileAddress").textContent =
-        "Not provided";
-    document.getElementById("profilePhone").textContent =
-        "Not provided";
-    document.getElementById("profileLicence").textContent =
-        "Not provided";
-    return;
-}
-document.getElementById("profileName").textContent =
-    data.full_name || user.user_metadata?.full_name || "Not provided";
-document.getElementById("profileAddress").textContent =
-    data.address || "Not provided";
-document.getElementById("profilePhone").textContent =
-    data.phone || "Not provided";
-document.getElementById("profileLicence").textContent =
-    data.driving_license || data.driving_license || "Not provided";
+        data.driving_licence || "Not provided";
 
 }
 
