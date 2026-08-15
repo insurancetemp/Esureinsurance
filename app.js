@@ -249,20 +249,20 @@ function startCountdown(expiryTime, coverType) {
         const minutes = totalMinutes % 60;
 
 
-        // 7 DAY POLICY
-        if (
-            coverType === "7days" ||
-            coverType === "7day" ||
-            coverType === "7 Days" ||
-            coverType === "7 Day"
-        ) {
+if (coverType === "7days") {
 
-            document.getElementById("timeRemaining").textContent =
-                days + "d " +
-                hours + "hr " +
-                minutes + "m remaining";
+    document.getElementById("timeRemaining").textContent =
+        days + "d " +
+        hours + "hr " +
+        minutes + "m remaining";
 
-        }
+} else {
+
+    document.getElementById("timeRemaining").textContent =
+        hours + "hr " +
+        minutes + "m remaining";
+
+}
 
         // 1 DAY POLICY
         else {
