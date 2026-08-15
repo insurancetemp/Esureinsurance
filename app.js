@@ -195,7 +195,7 @@ document.getElementById("coverType").textContent =
 window.currentPolicy = data;
 
 
-startCountdown(data.expiry_time, data.start_time);
+startCountdown(data.expiry_time);
 
 }
 
@@ -205,7 +205,7 @@ startCountdown(data.expiry_time, data.start_time);
 
 let countdownInterval = null;
 
-function startCountdown(expiryTime, startTime) {
+function startCountdown(expiryTime) {
 
     if (countdownInterval) {
         clearInterval(countdownInterval);
@@ -214,7 +214,6 @@ function startCountdown(expiryTime, startTime) {
     function updateCountdown() {
 
         const expiry = new Date(expiryTime);
-        const start = new Date(startTime);
         const now = new Date();
 
         const difference = expiry - now;
@@ -232,48 +231,31 @@ function startCountdown(expiryTime, startTime) {
 
             clearInterval(countdownInterval);
             return;
+
         }
 
-        const totalMinutes = Math.floor(
-            difference / (1000 * 60)
-        );
-
-        const totalPolicyMinutes = Math.floor(
-            (expiry - start) / (1000 * 60)
-        );
-
-        const days = Math.floor(
-            totalMinutes / (60 * 24)
-        );
-
         const hours = Math.floor(
-            (totalMinutes % (60 * 24)) / 60
+            difference / (1000 * 60 * 60)
         );
 
-        const minutes = totalMinutes % 60;
+        const minutes = Math.floor(
+            (difference % (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
 
+        document.getElementById("timeRemaining").textContent =
+            hours + "hr " + minutes + "m remaining";
 
-        // 1 DAY OR LONGER
-        if (totalPolicyMinutes >= 24 * 60) {
+    }
 
-            if (days > 0) {
+    updateCountdown();
 
-                document.getElementById("timeRemaining").textContent =
-                    days +
-                    (days === 1 ? " day " : " days ") +
-                    hours +
-                    "h remaining";
+    countdownInterval = setInterval(
+        updateCountdown,
+        60000
+    );
 
-            } else {
-
-                document.getElementById("timeRemaining").textContent =
-                    hours +
-                    "h " +
-                    minutes +
-                    "m remaining";
-
-            }
-
+}
         }
 
         // LESS THAN 1 DAY
