@@ -747,27 +747,21 @@ Temporary Motor Insurance made simple.
 const coverSelect = document.getElementById("cover");
 const priceBox = document.getElementById("price");
 
-
 const prices = {
-
-    "1hour":20,
-    "2hours":40,
-    "6hours":20,
-    "12hours":30,
-    "1day":45
-    "7days":150
-
+    "1hour": 20,
+    "2hours": 40,
+    "6hours": 20,
+    "12hours": 30,
+    "1day": 45,
+    "7days": 150
 };
 
+coverSelect.addEventListener("change", function () {
 
+    const selectedCover = this.value;
+    const price = prices[selectedCover] || 0;
 
-coverSelect.addEventListener("change", function(){
-
-
-    const price = prices[this.value] || 0;
-
-    priceBox.innerText = "£" + price;
-
+    priceBox.textContent = "£" + price;
 
 });
 
