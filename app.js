@@ -195,7 +195,7 @@ document.getElementById("coverType").textContent =
 window.currentPolicy = data;
 
 
-startCountdown(data.expiry_time, data.cover_type);
+startCountdown(data.expiry_time, data.start_time);
 
 }
 
@@ -205,7 +205,7 @@ startCountdown(data.expiry_time, data.cover_type);
 
 let countdownInterval = null;
 
-function startCountdown(expiryTime, coverType) {
+function startCountdown(expiryTime, startTime) {
 
     if (countdownInterval) {
         clearInterval(countdownInterval);
@@ -214,9 +214,10 @@ function startCountdown(expiryTime, coverType) {
     function updateCountdown() {
 
         const expiry = new Date(expiryTime);
+        const start = new Date(startTime);
         const now = new Date();
 
-        const difference = expiry - now;
+        const difference = expiry.getTime() - now.getTime();
 
         if (difference <= 0) {
 
@@ -233,31 +234,33 @@ function startCountdown(expiryTime, coverType) {
             return;
         }
 
-        const totalMinutes = Math.floor(
-            difference / (1000 * 60)
-        );
+        // Calculate the ORIGINAL policy duration
+        const policyDuration =
+            expiry.getTime() - start.getTime();
 
-        const days = Math.floor(
-            totalMinutes / (60 * 24)
-        );
+        // 24 hours or longer = show days
+        if (policyDuration >= 24 * 60 * 60 * 1000) {
 
-        const hours = Math.floor(
-            (totalMinutes % (60 * 24)) / 60
-        );
+            const totalMinutes =
+                Math.floor(difference / (1000 * 60));
 
-        const minutes = totalMinutes % 60;
+            const days =
+                Math.floor(totalMinutes / (60 * 24));
 
+            const hours =
+                Math.floor(
+                    (totalMinutes % (60 * 24)) / 60
+                );
 
-        let displayText;
+            const minutes =
+                totalMinutes % 60;
 
-
-        // 1 DAY AND 7 DAYS
-        if (coverType === "1day" || coverType === "7days") {
 
             if (days > 0) {
 
-                displayText =
-                    days + " day" +
+                document.getElementById("timeRemaining").textContent =
+                    days +
+                    " day" +
                     (days !== 1 ? "s" : "") +
                     " " +
                     hours +
@@ -265,7 +268,7 @@ function startCountdown(expiryTime, coverType) {
 
             } else {
 
-                displayText =
+                document.getElementById("timeRemaining").textContent =
                     hours +
                     "h " +
                     minutes +
@@ -273,43 +276,35 @@ function startCountdown(expiryTime, coverType) {
 
             }
 
+        } else {
+
+            // Short policies: show hours/minutes
+
+            const hours =
+                Math.floor(
+                    difference / (1000 * 60 * 60)
+                );
+
+            const minutes =
+                Math.floor(
+                    (difference % (1000 * 60 * 60)) /
+                    (1000 * 60)
+                );
+
+            document.getElementById("timeRemaining").textContent =
+                hours +
+                "h " +
+                minutes +
+                "m remaining";
         }
-
-
-        // HOURLY POLICIES
-        else {
-
-            if (hours > 0) {
-
-                displayText =
-                    hours +
-                    "h " +
-                    minutes +
-                    "m remaining";
-
-            } else {
-
-                displayText =
-                    minutes +
-                    "m remaining";
-
-            }
-
-        }
-
-
-        document.getElementById("timeRemaining").textContent =
-            displayText;
 
     }
 
     updateCountdown();
 
-    countdownInterval = setInterval(
-        updateCountdown,
-        60000
-    );
-
+    countdownInterval =
+        setInterval(updateCountdown, 60000);
+}
 }
 
 
