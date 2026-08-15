@@ -217,7 +217,7 @@ function startCountdown(expiryTime, startTime) {
         const start = new Date(startTime);
         const now = new Date();
 
-        const difference = expiry.getTime() - now.getTime();
+        const difference = expiry - now;
 
         if (difference <= 0) {
 
@@ -234,35 +234,33 @@ function startCountdown(expiryTime, startTime) {
             return;
         }
 
-        // Calculate the ORIGINAL policy duration
-        const policyDuration =
-            expiry.getTime() - start.getTime();
+        const totalMinutes = Math.floor(
+            difference / (1000 * 60)
+        );
 
-        // 24 hours or longer = show days
-        if (policyDuration >= 24 * 60 * 60 * 1000) {
+        const totalPolicyMinutes = Math.floor(
+            (expiry - start) / (1000 * 60)
+        );
 
-            const totalMinutes =
-                Math.floor(difference / (1000 * 60));
+        const days = Math.floor(
+            totalMinutes / (60 * 24)
+        );
 
-            const days =
-                Math.floor(totalMinutes / (60 * 24));
+        const hours = Math.floor(
+            (totalMinutes % (60 * 24)) / 60
+        );
 
-            const hours =
-                Math.floor(
-                    (totalMinutes % (60 * 24)) / 60
-                );
+        const minutes = totalMinutes % 60;
 
-            const minutes =
-                totalMinutes % 60;
 
+        // 1 DAY OR LONGER
+        if (totalPolicyMinutes >= 24 * 60) {
 
             if (days > 0) {
 
                 document.getElementById("timeRemaining").textContent =
                     days +
-                    " day" +
-                    (days !== 1 ? "s" : "") +
-                    " " +
+                    (days === 1 ? " day " : " days ") +
                     hours +
                     "h remaining";
 
@@ -276,27 +274,39 @@ function startCountdown(expiryTime, startTime) {
 
             }
 
-        } else {
-
-            // Short policies: show hours/minutes
-
-            const hours =
-                Math.floor(
-                    difference / (1000 * 60 * 60)
-                );
-
-            const minutes =
-                Math.floor(
-                    (difference % (1000 * 60 * 60)) /
-                    (1000 * 60)
-                );
-
-            document.getElementById("timeRemaining").textContent =
-                hours +
-                "h " +
-                minutes +
-                "m remaining";
         }
+
+        // LESS THAN 1 DAY
+        else {
+
+            if (hours > 0) {
+
+                document.getElementById("timeRemaining").textContent =
+                    hours +
+                    "h " +
+                    minutes +
+                    "m remaining";
+
+            } else {
+
+                document.getElementById("timeRemaining").textContent =
+                    minutes +
+                    "m remaining";
+
+            }
+
+        }
+
+    }
+
+    updateCountdown();
+
+    countdownInterval = setInterval(
+        updateCountdown,
+        60000
+    );
+
+}
 
     }
 
