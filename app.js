@@ -204,6 +204,8 @@ startCountdown(data.expiry_time, data.start_time);
 
 let countdownInterval = null;
 
+let countdownInterval = null;
+
 function startCountdown(expiryTime, startTime) {
 
     if (countdownInterval) {
@@ -248,8 +250,9 @@ function startCountdown(expiryTime, startTime) {
         const minutes = totalMinutes % 60;
 
 
-        // Calculate original policy duration
+        // Work out the original policy length
         const start = new Date(startTime);
+
         const totalPolicyHours =
             (expiry - start) / (1000 * 60 * 60);
 
@@ -282,7 +285,6 @@ function startCountdown(expiryTime, startTime) {
         60000
     );
 }
-
 // ---------------------------------
 // PAGE SECTIONS
 // ---------------------------------
