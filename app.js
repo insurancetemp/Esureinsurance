@@ -194,7 +194,7 @@ document.getElementById("coverType").textContent =
 window.currentPolicy = data;
 
 
-startCountdown(data.expiry_time, data.cover_type);
+startCountdown(data.expiry_time, data.start_time);
 
 }
 
@@ -204,7 +204,7 @@ startCountdown(data.expiry_time, data.cover_type);
 
 let countdownInterval = null;
 
-function startCountdown(expiryTime, coverType) {
+function startCountdown(expiryTime, startTime) {
 
     if (countdownInterval) {
         clearInterval(countdownInterval);
@@ -248,12 +248,29 @@ function startCountdown(expiryTime, coverType) {
         const minutes = totalMinutes % 60;
 
 
-if (normalizedCoverType.includes("7")) {
+        // Calculate original policy duration
+        const start = new Date(startTime);
+        const totalPolicyHours =
+            (expiry - start) / (1000 * 60 * 60);
 
-    document.getElementById("timeRemaining").textContent =
-        days + "days " +
-        hours + "hrs " +
-        minutes + "m remaining";
+
+        // 7 DAY POLICY
+        if (totalPolicyHours >= 150) {
+
+            document.getElementById("timeRemaining").textContent =
+                days + "days " +
+                hours + "hrs " +
+                minutes + "m remaining";
+
+        }
+
+        // 1 DAY POLICY
+        else {
+
+            document.getElementById("timeRemaining").textContent =
+                hours + "hr " +
+                minutes + "m remaining";
+
         }
 
     }
@@ -264,7 +281,6 @@ if (normalizedCoverType.includes("7")) {
         updateCountdown,
         60000
     );
-
 }
 
 // ---------------------------------
