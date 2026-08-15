@@ -204,8 +204,6 @@ startCountdown(data.expiry_time, data.start_time);
 
 let countdownInterval = null;
 
-let countdownInterval = null;
-
 function startCountdown(expiryTime, startTime) {
 
     if (countdownInterval) {
@@ -215,6 +213,7 @@ function startCountdown(expiryTime, startTime) {
     function updateCountdown() {
 
         const expiry = new Date(expiryTime);
+        const start = new Date(startTime);
         const now = new Date();
 
         const difference = expiry - now;
@@ -235,6 +234,14 @@ function startCountdown(expiryTime, startTime) {
             return;
         }
 
+        // Work out the ORIGINAL policy length
+        const policyLength =
+            expiry.getTime() - start.getTime();
+
+        // 7 days = 168 hours
+        const isSevenDayPolicy =
+            policyLength >= (6 * 24 * 60 * 60 * 1000);
+
         const totalMinutes = Math.floor(
             difference / (1000 * 60)
         );
@@ -247,28 +254,17 @@ function startCountdown(expiryTime, startTime) {
             (totalMinutes % (60 * 24)) / 60
         );
 
-        const minutes = totalMinutes % 60;
+        const minutes =
+            totalMinutes % 60;
 
-
-        // Work out the original policy length
-        const start = new Date(startTime);
-
-        const totalPolicyHours =
-            (expiry - start) / (1000 * 60 * 60);
-
-
-        // 7 DAY POLICY
-        if (totalPolicyHours >= 150) {
+        if (isSevenDayPolicy) {
 
             document.getElementById("timeRemaining").textContent =
                 days + "days " +
                 hours + "hrs " +
                 minutes + "m remaining";
 
-        }
-
-        // 1 DAY POLICY
-        else {
+        } else {
 
             document.getElementById("timeRemaining").textContent =
                 hours + "hr " +
