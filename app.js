@@ -195,7 +195,7 @@ document.getElementById("coverType").textContent =
 window.currentPolicy = data;
 
 
-startCountdown(data.expiry_time);
+startCountdown(data.expiry_time, data.cover_type);
 
 }
 
@@ -205,7 +205,7 @@ startCountdown(data.expiry_time);
 
 let countdownInterval = null;
 
-function startCountdown(expiryTime) {
+function startCountdown(expiryTime, coverType) {
 
     if (countdownInterval) {
         clearInterval(countdownInterval);
@@ -223,7 +223,8 @@ function startCountdown(expiryTime) {
             document.getElementById("timeRemaining").textContent =
                 "Policy Expired";
 
-            const badge = document.querySelector(".active-status");
+            const badge =
+                document.querySelector(".active-status");
 
             if (badge) {
                 badge.textContent = "EXPIRED";
@@ -231,51 +232,44 @@ function startCountdown(expiryTime) {
 
             clearInterval(countdownInterval);
             return;
-
         }
+
+        const totalMinutes = Math.floor(
+            difference / (1000 * 60)
+        );
+
+        const days = Math.floor(
+            totalMinutes / (60 * 24)
+        );
 
         const hours = Math.floor(
-            difference / (1000 * 60 * 60)
+            (totalMinutes % (60 * 24)) / 60
         );
 
-        const minutes = Math.floor(
-            (difference % (1000 * 60 * 60)) /
-            (1000 * 60)
-        );
+        const minutes = totalMinutes % 60;
 
-        document.getElementById("timeRemaining").textContent =
-            hours + "hr " + minutes + "m remaining";
 
-    }
+        // 7 DAY POLICY
+        if (
+            coverType === "7days" ||
+            coverType === "7day" ||
+            coverType === "7 Days" ||
+            coverType === "7 Day"
+        ) {
 
-    updateCountdown();
+            document.getElementById("timeRemaining").textContent =
+                days + "d " +
+                hours + "hr " +
+                minutes + "m remaining";
 
-    countdownInterval = setInterval(
-        updateCountdown,
-        60000
-    );
-
-}
         }
 
-        // LESS THAN 1 DAY
+        // 1 DAY POLICY
         else {
 
-            if (hours > 0) {
-
-                document.getElementById("timeRemaining").textContent =
-                    hours +
-                    "h " +
-                    minutes +
-                    "m remaining";
-
-            } else {
-
-                document.getElementById("timeRemaining").textContent =
-                    minutes +
-                    "m remaining";
-
-            }
+            document.getElementById("timeRemaining").textContent =
+                hours + "hr " +
+                minutes + "m remaining";
 
         }
 
@@ -287,19 +281,7 @@ function startCountdown(expiryTime) {
         updateCountdown,
         60000
     );
-
 }
-
-    }
-
-    updateCountdown();
-
-    countdownInterval =
-        setInterval(updateCountdown, 60000);
-}
-}
-
-
 
 // ---------------------------------
 // PAGE SECTIONS
