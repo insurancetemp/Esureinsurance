@@ -195,7 +195,7 @@ document.getElementById("coverType").textContent =
 window.currentPolicy = data;
 
 
-startCountdown(data.expiry_time);
+startCountdown(data.expiry_time, data.cover_type);
 
 }
 
@@ -205,7 +205,7 @@ startCountdown(data.expiry_time);
 
 let countdownInterval = null;
 
-function startCountdown(expiryTime) {
+function startCountdown(expiryTime, coverType) {
 
     if (countdownInterval) {
         clearInterval(countdownInterval);
@@ -231,16 +231,75 @@ function startCountdown(expiryTime) {
 
             clearInterval(countdownInterval);
             return;
+        }
+
+        const totalMinutes = Math.floor(
+            difference / (1000 * 60)
+        );
+
+        const days = Math.floor(
+            totalMinutes / (60 * 24)
+        );
+
+        const hours = Math.floor(
+            (totalMinutes % (60 * 24)) / 60
+        );
+
+        const minutes = totalMinutes % 60;
+
+
+        let displayText;
+
+
+        // 1 DAY AND 7 DAYS
+        if (coverType === "1day" || coverType === "7days") {
+
+            if (days > 0) {
+
+                displayText =
+                    days + " day" +
+                    (days !== 1 ? "s" : "") +
+                    " " +
+                    hours +
+                    "h remaining";
+
+            } else {
+
+                displayText =
+                    hours +
+                    "h " +
+                    minutes +
+                    "m remaining";
+
+            }
 
         }
 
-        const hours = Math.floor(difference / (1000 * 60 * 60));
-        const minutes = Math.floor(
-            (difference % (1000 * 60 * 60)) / (1000 * 60)
-        );
+
+        // HOURLY POLICIES
+        else {
+
+            if (hours > 0) {
+
+                displayText =
+                    hours +
+                    "h " +
+                    minutes +
+                    "m remaining";
+
+            } else {
+
+                displayText =
+                    minutes +
+                    "m remaining";
+
+            }
+
+        }
+
 
         document.getElementById("timeRemaining").textContent =
-            hours + "hr " + minutes + "m remaining";
+            displayText;
 
     }
 
