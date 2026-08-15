@@ -248,19 +248,12 @@ function startCountdown(expiryTime, coverType) {
         const minutes = totalMinutes % 60;
 
 
-        if (coverType === "7days") {
+if (normalizedCoverType.includes("7")) {
 
-            document.getElementById("timeRemaining").textContent =
-                days + "d " +
-                hours + "hr " +
-                minutes + "m remaining";
-
-        } else {
-
-            document.getElementById("timeRemaining").textContent =
-                hours + "hr " +
-                minutes + "m remaining";
-
+    document.getElementById("timeRemaining").textContent =
+        days + "days " +
+        hours + "hrs " +
+        minutes + "m remaining";
         }
 
     }
