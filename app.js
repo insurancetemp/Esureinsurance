@@ -194,7 +194,7 @@ document.getElementById("coverType").textContent =
 window.currentPolicy = data;
 
 
-startCountdown(data.expiry_time, data.cover_type));
+startCountdown(data.expiry_time, data.cover_type);
 
 }
 
