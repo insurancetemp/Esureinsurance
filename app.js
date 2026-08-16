@@ -189,6 +189,16 @@ document.getElementById("vehicleDetails").textContent =
 document.getElementById("coverType").textContent =
     data.cover_type;
 
+const policyPrice =
+    document.getElementById("policyPrice");
+
+if (policyPrice) {
+
+    policyPrice.textContent =
+        "£" + Number(data.price).toFixed(2);
+
+}    
+
 
 // Save policy for certificate
 window.currentPolicy = data;
