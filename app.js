@@ -192,13 +192,15 @@ document.getElementById("coverType").textContent =
 const policyPrice =
     document.getElementById("policyPrice");
 
+console.log("POLICY PRICE FROM SUPABASE:", data.price);
+console.log("FULL POLICY DATA:", data);
+
 if (policyPrice) {
 
     policyPrice.textContent =
         "£" + Number(data.price).toFixed(2);
 
-}    
-
+}
 
 // Save policy for certificate
 window.currentPolicy = data;
